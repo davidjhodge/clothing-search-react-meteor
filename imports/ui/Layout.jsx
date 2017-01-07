@@ -2,20 +2,29 @@ import React, { Component } from 'react';
 import ProductSearch from './ProductSearch.jsx';
 
 const styles = {
-  container: {
-    maxWidth: 600,
+  horizontalContainer: {
+    margin: 0,
+    flexDirection: 'row',
+    flex: 1,
+    background: 'transparent',
+    alignSelf: 'stretch',
+  },
+  verticalContainer: {
     margin: 0,
     flexDirection: 'column',
     flex: 1,
-    background: 'white',
+    background: '#f5f5f5',
+    alignSelf: 'stretch',
   },
 }
 
 class Layout extends Component {
   render() {
     return (
-      <div className="container" style={styles.container}>
-        <ProductSearch />
+      <div style={styles.horizontalContainer}>
+        <div style={styles.verticalContainer}>
+          <ProductSearch />
+        </div>
       </div>
     );
   }
