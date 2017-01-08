@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
 import ProductSearch from './ProductSearch.jsx';
+import Navigation from './Navigation.jsx';
+import Footer from './Footer.jsx';
 
 const styles = {
   horizontalContainer: {
-    margin: 0,
-    flexDirection: 'row',
     flex: 1,
+    alignItems: 'stretch',
     background: 'transparent',
-    alignSelf: 'stretch',
+    flexDirection: 'row',
   },
   verticalContainer: {
-    margin: 0,
     flexDirection: 'column',
     flex: 1,
     background: '#f5f5f5',
-    alignSelf: 'stretch',
   },
 }
 
@@ -23,7 +22,9 @@ class Layout extends Component {
     return (
       <div style={styles.horizontalContainer}>
         <div style={styles.verticalContainer}>
+          <Navigation />
           <ProductSearch />
+          <Footer />
         </div>
       </div>
     );
