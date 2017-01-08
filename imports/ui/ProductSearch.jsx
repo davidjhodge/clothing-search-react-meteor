@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import { GridList, GridTile } from 'material-ui/GridList';
 import Product from './Product.jsx';
+import { Spinner } from './spinner/Spinner.jsx';
 
 const styles = {
   pageContainer: {
@@ -21,7 +22,8 @@ const styles = {
     flex: 1,
     height: 'auto',
     alignSelf: 'center',
-    maxWidth: 1024,
+    maxWidth: 968,
+    minHeight: 600,
   },
   searchBar: {
     display: 'flex',
@@ -30,10 +32,11 @@ const styles = {
     borderColor: 'transparent',
     outline: 0,
     height: 48,
-    fontSize: 14,
+    fontSize: 16,
     color: 'black',
     paddingLeft: 16,
-    maxWidth: 1024,
+    maxWidth: 928,
+    fontFamily: 'Lato',
   },
   searchContainer: {
     alignSelf: 'stretch',
@@ -52,6 +55,7 @@ class ProductSearch extends Component {
     this.state =  {
       searchString: "",
       products: [],
+      isLoading: false,
     };
   }
   aggregateSearch(event) {
@@ -59,6 +63,9 @@ class ProductSearch extends Component {
     event.preventDefault();
 
     if (this.state.searchString.length > 0) {
+      // Start spinner
+      this.state.isLoading = true;
+      // Make API call
       Meteor.call('aggregateSearch', this.state.searchString, (error,response) => {
         if (error) {
           console.log(error);
@@ -68,11 +75,14 @@ class ProductSearch extends Component {
             products: response
           });
         }
+        // Stop spinner
+        this.state.isLoading = false;
       });
     }
   }
 
   searchTextChanged(event) {
+    // Each time the text field changes, update the state
     searchText = event.target.value;
     this.state.searchString = searchText;
   }
@@ -90,7 +100,8 @@ class ProductSearch extends Component {
             onChange={this.searchTextChanged.bind(this)} />
         </form>
         <div
-          style={styles.grid}>
+          style={styles.grid}
+          hidden={this.state.isLoading}>
         {this.state.products.map((product) => (
             <Product
               key={product.id}
@@ -100,6 +111,7 @@ class ProductSearch extends Component {
               outboundUrl={product.outboundUrl} />
           ))}
         </div>
+
       </div>
     );
   }

@@ -24,20 +24,25 @@ export default class Api {
         console.log(error);
       } else {
         products = response.data.products;
-
-        simpleProducts = []
-        products.forEach(function(product) {
-          simple = {};
-          simple["id"] = product["id"];
-          simple["title"] = product["brandedName"];
-          simple["brand"] = get(product, "brand.name");
-          simple["price"] = product["priceLabel"];
-          simple["imageUrl"] = get(product, "image.sizes.Large.url");
-          simple["outboundUrl"] = product["clickUrl"];
-          simple["source"] = "shopstyle";
-          simpleProducts.push(simple)
-        });
-        callback(null, simpleProducts);
+        if (products && products != 'undefined') {
+          // Product response object exists
+          simpleProducts = []
+          products.forEach(function(product) {
+            simple = {};
+            simple["id"] = product["id"];
+            simple["title"] = product["brandedName"];
+            simple["brand"] = get(product, "brand.name");
+            simple["price"] = product["priceLabel"];
+            simple["imageUrl"] = get(product, "image.sizes.Large.url");
+            simple["outboundUrl"] = product["clickUrl"];
+            simple["source"] = "shopstyle";
+            simpleProducts.push(simple)
+          });
+          callback(null, simpleProducts);
+        } else {
+          // Product response does not exist
+          callback("Response object is undefined.", null);
+        }
       }
     });
   }
@@ -85,21 +90,34 @@ export default class Api {
               simpleItems = [];
 
               items = get(jsonResponse,'ItemSearchResponse.Items[0].Item');
+              if (items && items != 'undefined') {
+                // Response exists
+                items.forEach(function(item) {
 
-              items.forEach(function(item) {
+                  simple = {};
+                  simple["id"] = get(item, 'ASIN[0]');
+                  simple["title"] = get(item, 'ItemAttributes[0].Title[0]');
+                  simple["brand"] = get(item, 'ItemAttributes[0].Brand[0]');
+                  simple["price"] = get(item, 'ItemAttributes[0].ListPrice[0].FormattedPrice[0]');
+                  simple["imageUrl"] = get(item, 'MediumImage[0].URL[0]');
+                  simple["outboundUrl"] = get(item, 'DetailPageURL[0]');
+                  simple["source"] = "amazon";
+                  // Ensure object is valid
+                  if (typeof simple["id"] !== "undefined" &&
+                      typeof simple["title"] !== "undefined" &&
+                      typeof simple["brand"] !== "undefined" &&
+                      typeof simple["price"] !== "undefined" &&
+                      typeof simple["imageUrl"] !== "undefined" &&
+                      typeof simple["outboundUrl"] !== "undefined") {
+                      simpleItems.push(simple)
+                  }
+                });
 
-                simple = {};
-                simple["id"] = get(item, 'ASIN[0]');
-                simple["title"] = get(item, 'ItemAttributes[0].Title[0]');
-                simple["brand"] = get(item, 'ItemAttributes[0].Brand[0]');
-                simple["price"] = get(item, 'ItemAttributes[0].ListPrice[0].FormattedPrice[0]');
-                simple["imageUrl"] = get(item, 'MediumImage[0].URL[0]');
-                simple["outboundUrl"] = get(item, 'DetailPageURL[0]');
-                simple["source"] = "amazon";
-                simpleItems.push(simple)
-              });
-
-              callback(null, simpleItems);
+                callback(null, simpleItems);
+              } else {
+                // Request was successful but response does not exist
+                callback("Response object is undefined.", null);
+              }
             }
           }
         });
