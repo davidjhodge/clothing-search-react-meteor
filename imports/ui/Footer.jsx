@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 const styles = {
   footerContainer: {
     backgroundColor: 'white',
-    height: 70,
+    height: 200,
     display: 'flex',
     flex: 1,
     flexDirection: 'row',
