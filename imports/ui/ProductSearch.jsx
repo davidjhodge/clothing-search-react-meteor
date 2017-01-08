@@ -1,6 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
-import { GridList, GridTile } from 'material-ui/GridList';
 import Product from './Product.jsx';
 import { Spinner } from './spinner/Spinner.jsx';
 
@@ -13,17 +11,19 @@ const styles = {
     alignSelf: 'center',
     alignItems: 'center',
   },
-  grid: {
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    backgroundColor: 'transparent',
-    padding: 16,
+  headlineContainer: {
+    height: 100,
+    maxWidth: 928,
     flex: 1,
-    height: 'auto',
-    alignSelf: 'center',
-    maxWidth: 968,
-    minHeight: 600,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  headline: {
+    fontFamily: 'Lato',
+    fontWeight: 'bold',
+    fontSize: 28,
+    // alignSelf: 'center',
   },
   searchBar: {
     display: 'flex',
@@ -46,7 +46,19 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'stretch',
     margin: 16,
-  }
+  },
+  grid: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    backgroundColor: 'transparent',
+    padding: 16,
+    flex: 1,
+    height: 'auto',
+    alignSelf: 'center',
+    maxWidth: 968,
+    minHeight: 600,
+  },
 };
 
 class ProductSearch extends Component {
@@ -90,6 +102,12 @@ class ProductSearch extends Component {
   render() {
     return (
       <div style={styles.pageContainer}>
+        <div style={styles.headlineContainer}>
+          <span
+            style={styles.headline}>
+            Search Amazon and Shopstyle at the same time.
+          </span>
+        </div>
         <form
           onSubmit={this.aggregateSearch.bind(this)}
           style={styles.searchContainer}>
