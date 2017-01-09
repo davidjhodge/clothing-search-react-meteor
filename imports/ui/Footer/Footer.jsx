@@ -13,7 +13,7 @@ class Footer extends Component {
             <Link
               to="/our-mission"
               activeClassName="active"
-              className="link">Our Mission</Link>
+              className="link">Our Vision</Link>
           </li>
           <li>
             <Link
