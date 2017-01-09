@@ -14,7 +14,6 @@ const styles = {
     display: 'flex',
     flex: 1,
     flexDirection: 'row',
-    // justifyContent: 'center',
   },
   logo: {
     height: 30,
@@ -45,7 +44,6 @@ const styles = {
     fontWeight: 'regular',
     textDecoration: 'none',
     padding: 16,
-    // alignSelf: 'flex-end',
   }
 }
 

@@ -6,6 +6,7 @@ import App from '../../ui/App.jsx';
 import ProductSearch from '../../ui/ProductSearch.jsx';
 import About from '../../ui/About.jsx';
 import Contact from '../../ui/Contact.jsx';
+import NotFound from '../../ui/NotFound.jsx';
 
 Meteor.startup( () => {
   render(
@@ -14,6 +15,7 @@ Meteor.startup( () => {
         <IndexRoute component={ProductSearch} />
         <Route path="/our-mission" component={About} />
         <Route path="/contact" component={Contact} />
+        <Route path="*" component={NotFound} />
       </Route>
     </Router>,
     document.getElementById('render-target')

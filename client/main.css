@@ -8,8 +8,16 @@ body {
   left: 0;
   right: 0;
 
+  height: 100%;
+  width: 100%;
+
   padding: 0;
   margin: 0;
 
   font-size: 14px;
+}
+
+#render-target {
+  height: 100%;
+  width: 100%;
 }

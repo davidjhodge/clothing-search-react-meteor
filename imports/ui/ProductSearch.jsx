@@ -45,7 +45,10 @@ const styles = {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'stretch',
-    margin: 16,
+    marginTop: 0,
+    marginLeft: 16,
+    marginRight: 16,
+    marginBottom: 16,
   },
   grid: {
     display: 'flex',
@@ -57,7 +60,7 @@ const styles = {
     height: 'auto',
     alignSelf: 'center',
     maxWidth: 968,
-    minHeight: 600,
+    // minHeight: 600,
   },
 };
 
