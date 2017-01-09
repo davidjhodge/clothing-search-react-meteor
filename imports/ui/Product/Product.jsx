@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import './Product.css';
 
 const styles = {
   card: {
@@ -10,12 +11,10 @@ const styles = {
     backgroundColor: 'white',
     textAlign: 'center',
     color: 'black',
-    margin: 8,
     borderRadius: 4,
     cursor: 'pointer',
     float: 'left',
     height: 322,
-    width: 220,
   },
   productContents: {
     display: 'flex',
@@ -23,7 +22,6 @@ const styles = {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 24,
   },
   imageContainer: {
     display: 'flex',
@@ -57,8 +55,8 @@ class Product extends Component {
   render() {
     return (
       <a href={this.props.outboundUrl} target="_blank">
-        <div style={styles.card}>
-          <div style={styles.productContents}>
+        <div style={styles.card} className="card">
+          <div style={styles.productContents} className="productContents">
             <div style={styles.imageContainer}>
               <img src={this.props.imageUrl} style={styles.image}/>
             </div>

@@ -5,16 +5,20 @@ import { get } from 'lodash';
 
 
 export default class Api {
-   static searchShopstyle(searchQuery, callback) {
+   static searchShopstyle(searchQuery, page, callback) {
     // Get products for a search query from searchShopstyle
     check(searchQuery, String);
+    check(page, Number);
+
+    // Page number is page - 1
+    page = page - 1;
 
     var baseUrl = 'https://api.shopstyle.com/api/v2/products'
     // Make http call
     HTTP.get(baseUrl, {
       "params": {
         "fts": searchQuery,
-        "offset": 0,
+        "offset": page,
         "limit": 10,
         "pid": "uid625-33622625-46"
       }
@@ -46,9 +50,15 @@ export default class Api {
       }
     });
   }
-  static searchAmazon(searchQuery, callback) {
+  static searchAmazon(searchQuery, page, callback) {
     // Get products for a search query from Amazon
     check(searchQuery, String);
+    check(page, Number);
+
+    // Amazon only returns the first 10 pages
+    if (page >= 10) {
+      callback("Amazon doesn't return more than 10 pages of results", null);
+    }
 
     var date = new Date();
 
@@ -60,6 +70,7 @@ export default class Api {
     params.push("Operation=" + "ItemSearch");
     params.push("ResponseGroup=" +encodeURIComponent("Images,ItemAttributes"));
     params.push("SearchIndex=" + "Fashion");
+    params.push("ItemPage=" + page.toString())
     params.push("Service=" + "AWSECommerceService");
     params.push("Timestamp=" + encodeURIComponent(date.toISOString()));
     params.push("Version=" + "2011-08-01");

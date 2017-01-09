@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import Product from './Product.jsx';
-import { Spinner } from './spinner/Spinner.jsx';
+import Product from '../Product/Product.jsx';
+import { Spinner } from '../spinner/Spinner.jsx';
+import { RaisedButton } from 'material-ui';
+import './ProductSearch.css';
 
 const styles = {
   pageContainer: {
@@ -18,12 +20,22 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    padding: 24,
   },
   headline: {
     fontFamily: 'Lato',
     fontWeight: 'bold',
     fontSize: 28,
-    // alignSelf: 'center',
+    textAlign: 'center',
+    wordSpacing: 1.4,
+  },
+  headlineLink: {
+    fontFamily: 'Lato',
+    fontWeight: 'bold',
+    fontSize: 28,
+    textAlign: 'center',
+    textDecoration: 'none',
+    color: 'black',
   },
   searchBar: {
     display: 'flex',
@@ -37,6 +49,7 @@ const styles = {
     paddingLeft: 16,
     maxWidth: 928,
     fontFamily: 'Lato',
+    letterSpacing: 0.5,
   },
   searchContainer: {
     alignSelf: 'stretch',
@@ -60,7 +73,6 @@ const styles = {
     height: 'auto',
     alignSelf: 'center',
     maxWidth: 968,
-    // minHeight: 600,
   },
 };
 
@@ -70,24 +82,36 @@ class ProductSearch extends Component {
     this.state =  {
       searchString: "",
       products: [],
+      page: 1,
       isLoading: false,
+      isFirstPageOnly: false, // manages state of "Load More" button
     };
   }
+
+  // This executes after the component renders (is mounted)
+  componentDidMount() {
+    this.makeSearch("mens clothes", this.state.page);
+  }
+
   aggregateSearch(event) {
     // Cancels page refresh from form submission
     event.preventDefault();
+    this.makeSearch(this.state.searchString, this.state.page);
+  }
 
-    if (this.state.searchString.length > 0) {
+  makeSearch(searchString, page) {
+    if (searchString.length > 0 && page > 0) {
       // Start spinner
       this.state.isLoading = true;
       // Make API call
-      Meteor.call('aggregateSearch', this.state.searchString, (error,response) => {
+      Meteor.call('aggregateSearch', searchString, this.state.page, (error,response) => {
         if (error) {
           console.log(error);
         } else {
           // response is an array of simple products
           this.setState({
-            products: response
+            products: response,
+            page: page + 1
           });
         }
         // Stop spinner
@@ -101,15 +125,29 @@ class ProductSearch extends Component {
     searchText = event.target.value;
     this.state.searchString = searchText;
   }
-
+  // <span
+  //   style={styles.headline}>
+  //   Search Amazon and Shopstyle at the same time.
+  // </span>
   render() {
     return (
       <div style={styles.pageContainer}>
         <div style={styles.headlineContainer}>
-          <span
-            style={styles.headline}>
-            Search Amazon and Shopstyle at the same time.
-          </span>
+          <span style={styles.headline}>Search</span>
+          <span style={styles.headline}>&nbsp;</span>
+          <a
+            style={styles.headlineLink}
+            href="https://www.amazon.com/"
+            target="_blank">Amazon</a>
+          <span style={styles.headline}>&nbsp;</span>
+          <span style={styles.headline}>and</span>
+          <span style={styles.headline}>&nbsp;</span>
+          <a
+            style={styles.headlineLink}
+            href="http://www.shopstyle.com/"
+            target="_blank">Shopstyle</a>
+          <span style={styles.headline}>&nbsp;</span>
+          <span style={styles.headline}>at the same time.</span>
         </div>
         <form
           onSubmit={this.aggregateSearch.bind(this)}
@@ -132,7 +170,13 @@ class ProductSearch extends Component {
               outboundUrl={product.outboundUrl} />
           ))}
         </div>
-
+        <div
+          className="loadMoreContainer"
+          hidden={this.state.isFirstPageOnly}>
+          <RaisedButton
+            label="Load More"
+            className="loadMore" />
+        </div>
       </div>
     );
   }
