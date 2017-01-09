@@ -7,9 +7,10 @@ export const Products = new Mongo.Collection('products');
 
 if (Meteor.isServer) {
   Meteor.methods({
-    'aggregateSearch'(searchQuery) {
+    'aggregateSearch'(searchQuery, page) {
 
       check(searchQuery, String);
+      check(page, Number);
 
       // Create futures to manage handling multiple async tasks at once
       var numRequests = 2
@@ -20,7 +21,7 @@ if (Meteor.isServer) {
         switch (index) {
           // Get results from Shopstyle
           case 0:
-            Api.searchShopstyle(searchQuery, function(error,response) {
+            Api.searchShopstyle(searchQuery, page, function(error,response) {
               if (error) {
                 console.error(error);
               } else {
@@ -32,7 +33,7 @@ if (Meteor.isServer) {
 
           // Get search results on Amazon
           case 1:
-            Api.searchAmazon(searchQuery, function(error,response) {
+            Api.searchAmazon(searchQuery, page, function(error,response) {
               if (error) {
                 console.error(error);
               } else {
@@ -54,6 +55,9 @@ if (Meteor.isServer) {
         if (typeof future != "undefined") {
           // Wait for the future to return a result
           var result = future.wait();
+          if (result == "undefined") {
+            return [];
+          }
           return result;
         }
       });
@@ -68,7 +72,7 @@ if (Meteor.isServer) {
 
 if (Meteor.isClient) {
   Meteor.methods({
-    'aggregateSearch'(searchQuery) {
+    'aggregateSearch'(searchQuery, page) {
 
     },
   });

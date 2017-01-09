@@ -1,0 +1,14 @@
+.loadMore {
+  border-radius: 4px;
+  background-color: #d8d8d8;
+  border-style: none;
+  /*height: 48px;*/
+  font-family: 'Lato', sans-serif;
+  font-size: 16px;
+  width: 100%;
+  /*margin-bottom: 24px;*/
+}
+
+.loadMoreContainer {
+  margin-bottom: 24px;
+}

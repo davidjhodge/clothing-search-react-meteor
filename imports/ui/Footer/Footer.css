@@ -12,8 +12,7 @@
 
 .list {
   list-style-type: none;
-  height: 60px;
-  float: left;
+  height: 48px;
   margin-left: 48px;
   padding-left: 0px;
 }
@@ -27,12 +26,44 @@ li {
   text-decoration: none;
   color: #4A4A4A;
   font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+.link:hover {
+  color: #9B9B9B;
 }
 
 .footerText {
   color: #9B9B9B;
   font-family: 'Lato', sans-serif;
-  float: right;
   margin-top: 30px;
   margin-right: 64px;
+  letter-spacing: 0.5px;
+}
+
+@media only screen and (min-width: 768px) {
+  /* Not Mobile */
+  .footerText {
+    float: right;
+  }
+
+  .list {
+    float: left;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  /* Mobile */
+  .footerContainer {
+    display:block;
+  }
+
+  .footerText {
+    float: left;
+    margin-top: 0px;
+    margin-left: 48px;
+    padding-left: 16px;
+    padding-bottom: 32px;
+  }
 }

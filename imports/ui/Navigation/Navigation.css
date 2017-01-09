@@ -1,0 +1,46 @@
+.logo {
+  height: 30px;
+  width: 120px;
+  font-family: 'Lato';
+  font-size: 24px;
+  color: white;
+  letter-spacing: 2.8px;
+  font-weight: normal;
+  align-self: center;
+  text-decoration: none;
+}
+
+@media only screen and (min-width: 768px) {
+  /* Not Mobile */
+  .logo {
+    padding-left: 48px;
+  }
+
+  .navLinksContainer {
+    padding-right: 48px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  /* Mobile */
+  .logo {
+    padding-left: 24px;
+  }
+
+  .navLinksContainer {
+    padding-right: 24px;
+  }
+}
+
+/*logo: {
+  height: 30,
+  width: 120,
+  paddingLeft: 48,
+  fontFamily: 'Lato',
+  fontSize: 24,
+  color: 'white',
+  letterSpacing: 2.8,
+  fontWeight: 'regular',
+  alignSelf: 'center',
+  textDecoration: 'none',
+},*/

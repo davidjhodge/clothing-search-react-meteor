@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { IndexLink, Link } from 'react-router';
+import './Navigation.css';
 
 const styles = {
   navContainer: {
@@ -15,18 +16,6 @@ const styles = {
     flex: 1,
     flexDirection: 'row',
   },
-  logo: {
-    height: 30,
-    width: 120,
-    paddingLeft: 48,
-    fontFamily: 'Lato',
-    fontSize: 24,
-    color: 'white',
-    letterSpacing: 2.8,
-    fontWeight: 'regular',
-    alignSelf: 'center',
-    textDecoration: 'none',
-  },
   navLinksContainer: {
     display: 'flex',
     flex: 1,
@@ -35,7 +24,6 @@ const styles = {
     alignSelf: 'center',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    marginRight: 48,
   },
   link: {
     fontFamily: 'Lato',
@@ -44,6 +32,7 @@ const styles = {
     fontWeight: 'regular',
     textDecoration: 'none',
     padding: 16,
+    letterSpacing: 0.5,
   }
 }
 
@@ -55,8 +44,8 @@ class Navigation extends Component {
           <IndexLink
             to="/"
             activeClassName="active"
-            style={styles.logo}>LAYERS</IndexLink>
-          <div style={styles.navLinksContainer}>
+            className="logo">LAYERS</IndexLink>
+          <div style={styles.navLinksContainer} className="navLinksContainer">
             <Link
               to="/our-mission"
               activeClassName="active"
