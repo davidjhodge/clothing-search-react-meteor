@@ -49,7 +49,7 @@ class Navigation extends Component {
             <Link
               to="/our-mission"
               activeClassName="active"
-              style={styles.link}>Our Mission</Link>
+              style={styles.link}>Our Vision</Link>
             <Link
               to="/contact"
               activeClassName="active"

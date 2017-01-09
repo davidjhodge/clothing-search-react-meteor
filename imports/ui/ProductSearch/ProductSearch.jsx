@@ -84,7 +84,8 @@ class ProductSearch extends Component {
       products: [],
       page: 1,
       isLoading: false,
-      isFirstPageOnly: false, // manages state of "Load More" button
+      showLoadMore: false, // Button should show on first results page only
+      lastSearch: '',
     };
   }
 
@@ -109,9 +110,27 @@ class ProductSearch extends Component {
           console.log(error);
         } else {
           // response is an array of simple products
+          // If the last search is the same as this one, paginate
+          if (this.state.lastSearch == searchString) {
+            // Append products from existing response
+            var arrayCopy = this.state.products.slice();
+            arrayCopy.push.apply(arrayCopy, response),
+            this.setState({
+              products: arrayCopy
+            });
+          }
+          else {
+            // If the search query has changed, do not paginate and replace results
+            this.setState({
+              products: response
+            });
+          }
+          // Now this is the last searched string
+          this.state.lastSearch = searchString;
+          // Increment page
+          nextPage = page + 1;
           this.setState({
-            products: response,
-            page: page + 1
+            page: nextPage
           });
         }
         // Stop spinner
@@ -133,7 +152,7 @@ class ProductSearch extends Component {
   // </span>
   render() {
     // Check if this page is 1 (meaning the next page is 2)
-    this.state.isFirstPageOnly = (this.state.page == 2)
+    this.state.showLoadMore = (this.state.page == 2)
 
     return (
       <div style={styles.pageContainer}>
@@ -177,7 +196,7 @@ class ProductSearch extends Component {
         </div>
         <div
           className="loadMoreContainer"
-          hidden={!this.state.isFirstPageOnly || !this.state.isLoading}>
+          hidden={!this.state.showLoadMore || !this.state.isLoading}>
           <RaisedButton
             label="Load More"
             className="loadMore"
