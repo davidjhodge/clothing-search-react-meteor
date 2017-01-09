@@ -1,0 +1,38 @@
+.footerContainer {
+  height: 100px;
+}
+
+.seperator {
+  height: 1px;
+  background-color: rgba(155, 155, 155, 0.5);
+  margin-top: 48px;
+  margin-left: 48px;
+  margin-right: 48px;
+}
+
+.list {
+  list-style-type: none;
+  height: 60px;
+  float: left;
+  margin-left: 48px;
+  padding-left: 0px;
+}
+
+li {
+  padding: 16px;
+  float: left;
+}
+
+.link {
+  text-decoration: none;
+  color: #4A4A4A;
+  font-family: 'Lato', sans-serif;
+}
+
+.footerText {
+  color: #9B9B9B;
+  font-family: 'Lato', sans-serif;
+  float: right;
+  margin-top: 30px;
+  margin-right: 64px;
+}
