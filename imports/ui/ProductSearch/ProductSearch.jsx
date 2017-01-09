@@ -124,12 +124,17 @@ class ProductSearch extends Component {
     // Each time the text field changes, update the state
     searchText = event.target.value;
     this.state.searchString = searchText;
+    // Changing the search query resets the page
+    this.state.page = 1;
   }
   // <span
   //   style={styles.headline}>
   //   Search Amazon and Shopstyle at the same time.
   // </span>
   render() {
+    // Check if this page is 1 (meaning the next page is 2)
+    this.state.isFirstPageOnly = (this.state.page == 2)
+
     return (
       <div style={styles.pageContainer}>
         <div style={styles.headlineContainer}>
@@ -172,10 +177,11 @@ class ProductSearch extends Component {
         </div>
         <div
           className="loadMoreContainer"
-          hidden={this.state.isFirstPageOnly}>
+          hidden={!this.state.isFirstPageOnly || !this.state.isLoading}>
           <RaisedButton
             label="Load More"
-            className="loadMore" />
+            className="loadMore"
+            onTouchTap={this.aggregateSearch.bind(this)} />
         </div>
       </div>
     );
