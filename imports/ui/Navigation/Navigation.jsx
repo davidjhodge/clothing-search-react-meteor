@@ -25,14 +25,9 @@ const styles = {
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
-  link: {
-    fontFamily: 'Lato',
-    fontSize: 14,
+  activeLink: {
     color: 'white',
-    fontWeight: 'regular',
     textDecoration: 'none',
-    padding: 16,
-    letterSpacing: 0.5,
   }
 }
 
@@ -43,17 +38,17 @@ class Navigation extends Component {
         <div style={styles.horizontalContainer}>
           <IndexLink
             to="/"
-            activeClassName="active"
+            activeStyle={styles.activeLink}
             className="logo">LAYERS</IndexLink>
           <div style={styles.navLinksContainer} className="navLinksContainer">
             <Link
-              to="/our-mission"
-              activeClassName="active"
-              style={styles.link}>Our Vision</Link>
+              to="/our-vision"
+              activeStyle={styles.activeLink}
+              className="nav-link">Our Vision</Link>
             <Link
               to="/contact"
-              activeClassName="active"
-              style={styles.link}>Contact</Link>
+              activeStyle={styles.activeLink}
+              className="nav-link">Contact</Link>
           </div>
         </div>
       </div>

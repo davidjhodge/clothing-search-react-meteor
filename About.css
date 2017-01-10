@@ -1,17 +1,31 @@
-.contentContainer {
-  background-color: 'white';
+.jumbotron-class {
+  background-color: white;
+  padding: 24px;
+}
+
+.headline {
+  font-size: 20px;
+}
+
+.headerImage {
+  /*width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;*/
 }
 
 @media only screen and (min-width: 768px) {
   /* Not Mobile */
   .contentContainer {
-    padding: 24px;
+    /*padding: 24px;*/
   }
 }
 
 @media only screen and (max-width: 768px) {
   /* Mobile */
   .contentContainer {
-    padding: 8px;
+    /*padding: 8px;*/
   }
 }

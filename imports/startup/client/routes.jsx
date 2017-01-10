@@ -13,7 +13,7 @@ Meteor.startup( () => {
     <Router history={browserHistory}>
       <Route path="/" component={App}>
         <IndexRoute component={ProductSearch} />
-        <Route path="/our-mission" component={About} />
+        <Route path="/our-vision" component={About} />
         <Route path="/contact" component={Contact} />
         <Route path="*" component={NotFound} />
       </Route>
