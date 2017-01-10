@@ -3,6 +3,13 @@ import { Link } from 'react-router';
 // import styles
 import './Footer.css';
 
+const styles = {
+  activeLink: {
+    color: '#4a4a4a',
+    textDecoration: 'none',
+  },
+};
+
 class Footer extends Component {
   render() {
     return(
@@ -11,14 +18,14 @@ class Footer extends Component {
         <ul className="list">
           <li>
             <Link
-              to="/our-mission"
-              activeClassName="active"
+              to="/our-vision"
+              activeStyle={styles.activeLink}
               className="link">Our Vision</Link>
           </li>
           <li>
             <Link
               to="/contact"
-              activeClassName="active"
+              activeStyle={styles.activeLink}
               className="link">Contact</Link>
           </li>
         </ul>

@@ -10,6 +10,26 @@
   text-decoration: none;
 }
 
+.logo:hover {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.nav-link {
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  color: #ffffff;
+  font-weight: normal;
+  text-decoration: none;
+  padding: 16px;
+  letter-spacing: 0.5px;
+}
+
+.nav-link:hover {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.75);
+}
+
 @media only screen and (min-width: 768px) {
   /* Not Mobile */
   .logo {

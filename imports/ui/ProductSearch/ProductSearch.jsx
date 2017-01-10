@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import Product from '../Product/Product.jsx';
 import { Spinner } from '../spinner/Spinner.jsx';
 import { RaisedButton } from 'material-ui';
+import ReactScrollPagination from 'react-scroll-pagination'
 import './ProductSearch.css';
 
 const styles = {
@@ -80,27 +81,32 @@ class ProductSearch extends Component {
   constructor(props) {
     super(props);
     this.state =  {
-      searchString: "",
+      searchString: "mens clothes",
       products: [],
       page: 1,
       isLoading: false,
-      showLoadMore: false, // Button should show on first results page only
+      isFirstPage: false, // Button should show on first results page only
       lastSearch: '',
     };
   }
 
   // This executes after the component renders (is mounted)
   componentDidMount() {
-    this.makeSearch("mens clothes", this.state.page);
+    this.executeSearch(this.state.searchString, this.state.page);
   }
 
-  aggregateSearch(event) {
+  searchBarEntered(event) {
     // Cancels page refresh from form submission
     event.preventDefault();
-    this.makeSearch(this.state.searchString, this.state.page);
+    this.executeSearch(this.state.searchString, this.state.page);
   }
 
-  makeSearch(searchString, page) {
+  // Helper to call the current search
+  currentSearch() {
+    this.executeSearch(this.state.searchString, this.state.page);
+  }
+
+  executeSearch(searchString, page) {
     if (searchString.length > 0 && page > 0) {
       // Start spinner
       this.state.isLoading = true;
@@ -152,7 +158,7 @@ class ProductSearch extends Component {
   // </span>
   render() {
     // Check if this page is 1 (meaning the next page is 2)
-    this.state.showLoadMore = (this.state.page == 2)
+    this.state.isFirstPage = (this.state.page == 2)
 
     return (
       <div style={styles.pageContainer}>
@@ -174,7 +180,7 @@ class ProductSearch extends Component {
           <span style={styles.headline}>at the same time.</span>
         </div>
         <form
-          onSubmit={this.aggregateSearch.bind(this)}
+          onSubmit={this.searchBarEntered.bind(this)}
           style={styles.searchContainer}>
           <input
             type="text"
@@ -186,22 +192,26 @@ class ProductSearch extends Component {
           style={styles.grid}
           hidden={this.state.isLoading}>
         {this.state.products.map((product) => (
-            <Product
-              key={product.id}
-              imageUrl={product.imageUrl}
-              title={product.title}
-              price={product.price}
-              outboundUrl={product.outboundUrl} />
-          ))}
+          <Product
+            key={product.id}
+            imageUrl={product.imageUrl}
+            title={product.title}
+            price={product.price}
+            outboundUrl={product.outboundUrl} />
+        ))}
         </div>
         <div
           className="loadMoreContainer"
-          hidden={!this.state.showLoadMore || !this.state.isLoading}>
+          hidden={!this.state.isFirstPage || !this.state.isLoading}>
           <RaisedButton
             label="Load More"
             className="loadMore"
-            onTouchTap={this.aggregateSearch.bind(this)} />
+            onTouchTap={this.currentSearch.bind(this)} />
         </div>
+        { !this.state.isFirstPage &&
+            <ReactScrollPagination
+              fetchFunc={this.currentSearch.bind(this)} />
+        }
       </div>
     );
   }
