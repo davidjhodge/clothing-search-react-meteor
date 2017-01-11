@@ -15,8 +15,10 @@ const App = ( {children}) => (
   <MuiThemeProvider>
     <div className="parentContainer">
         <Navigation />
-        <div className="contentsContainer">
-          { children }
+        <div className="contentBackground">
+          <div className="contentsContainer">
+            { children }
+          </div>
         </div>
         <Footer />
     </div>
