@@ -16,7 +16,7 @@ if (Meteor.isServer) {
       var numRequests = 2
       var range = _.range(numRequests);
       var futures = _.map(range, function(index) {
-        var future = new Future();
+      var future = new Future();
 
         switch (index) {
           // Get results from Shopstyle
@@ -25,6 +25,7 @@ if (Meteor.isServer) {
               if (error) {
                 console.error(error);
               } else {
+    
                 future.return(response);
               }
             });
@@ -58,12 +59,17 @@ if (Meteor.isServer) {
           if (result == "undefined") {
             return [];
           }
+
           return result;
         }
       });
 
       // Merges the results of all product arrays
       allProducts = [].concat.apply([], results);
+      // allProducts = results[0].concat(results[1]);
+      // allProducts.forEach(function(product) {
+      //   console.log(product["id"].toString());
+      // });
 
       return allProducts;
     }

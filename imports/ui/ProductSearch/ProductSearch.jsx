@@ -107,6 +107,11 @@ class ProductSearch extends Component {
   }
 
   executeSearch(searchString, page) {
+    // Abort request if pagination is already occuring for this query
+    if (this.isLoading && searchString == this.state.lastSearch) {
+      return;
+    }
+
     if (searchString.length > 0 && page > 0) {
       // Start spinner
       this.state.isLoading = true;
@@ -191,9 +196,9 @@ class ProductSearch extends Component {
         <div
           style={styles.grid}
           hidden={this.state.isLoading}>
-        {this.state.products.map((product) => (
+        {this.state.products.map((product, index) => (
           <Product
-            key={product.id}
+            key={index}
             imageUrl={product.imageUrl}
             title={product.title}
             price={product.price}
@@ -208,7 +213,7 @@ class ProductSearch extends Component {
             className="loadMore"
             onTouchTap={this.currentSearch.bind(this)} />
         </div>
-        { !this.state.isFirstPage &&
+        { !(this.state.page == 0 || this.state.isFirstPage) &&
             <ReactScrollPagination
               fetchFunc={this.currentSearch.bind(this)} />
         }
