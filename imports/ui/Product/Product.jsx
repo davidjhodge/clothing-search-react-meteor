@@ -14,7 +14,6 @@ const styles = {
     borderRadius: 4,
     cursor: 'pointer',
     float: 'left',
-    height: 322,
   },
   productContents: {
     display: 'flex',
@@ -27,28 +26,15 @@ const styles = {
     display: 'flex',
     flex: 1,
     flexDirection: 'row',
-    height: 194,
-    paddingBottom: 16,
+    maxHeight: 194,
+    paddingBottom: 8,
     justifyContent: 'center',
-    alignItems: 'center',
+    backgroundSize: 'contain',
   },
   image: {
-    resizeMode: 'contain',
+    // resizeMode: 'contain',
     alignSelf: 'center',
   },
-  title: {
-    fontSize: 14,
-    paddingVertical: 8,
-    overflow: 'hidden',
-    height: 34,
-    fontFamily: 'Lato',
-  },
-  price: {
-    fontSize: 14,
-    paddingTop: 8,
-    height: 20,
-    fontFamily: 'Lato',
-  }
 };
 
 class Product extends Component {
@@ -57,15 +43,14 @@ class Product extends Component {
       <a href={this.props.outboundUrl} target="_blank">
         <div style={styles.card} className="card">
           <div style={styles.productContents} className="productContents">
-            <div style={styles.imageContainer}>
-              <img src={this.props.imageUrl} style={styles.image}/>
+            <div style={styles.imageContainer} className="image-container">
+              <img src={this.props.imageUrl} style={styles.image} className="image"/>
             </div>
-            <span style={styles.title}>{this.props.title}</span>
-            <span style={styles.price}>{this.props.price}</span>
+            <span className="title">{this.props.title}</span>
+            <span className="price">{this.props.price}</span>
           </div>
         </div>
       </a>
-
     );
   }
 }
