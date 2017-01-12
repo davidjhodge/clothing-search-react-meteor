@@ -15,19 +15,19 @@ const styles = {
     alignItems: 'center',
   },
   headlineContainer: {
-    height: 100,
+    minHeight: 100,
     maxWidth: 928,
     flex: 1,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 24,
+    margin: 8,
   },
   headline: {
     fontFamily: 'Lato',
     fontWeight: 'bold',
     fontSize: 28,
-    textAlign: 'center',
     wordSpacing: 1.4,
   },
   headlineLink: {
@@ -44,13 +44,9 @@ const styles = {
     borderRadius: 4,
     borderColor: 'transparent',
     outline: 0,
-    height: 48,
-    fontSize: 16,
     color: 'black',
-    paddingLeft: 16,
     maxWidth: 928,
     fontFamily: 'Lato',
-    letterSpacing: 0.5,
   },
   searchContainer: {
     alignSelf: 'stretch',
@@ -60,8 +56,8 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'stretch',
     marginTop: 0,
-    marginLeft: 16,
-    marginRight: 16,
+    marginLeft: 8,
+    marginRight: 8,
     marginBottom: 16,
   },
   grid: {
@@ -168,21 +164,10 @@ class ProductSearch extends Component {
     return (
       <div style={styles.pageContainer}>
         <div style={styles.headlineContainer}>
-          <span style={styles.headline}>Search</span>
-          <span style={styles.headline}>&nbsp;</span>
-          <a
-            style={styles.headlineLink}
-            href="https://www.amazon.com/"
-            target="_blank">Amazon</a>
-          <span style={styles.headline}>&nbsp;</span>
-          <span style={styles.headline}>and</span>
-          <span style={styles.headline}>&nbsp;</span>
-          <a
-            style={styles.headlineLink}
-            href="http://www.shopstyle.com/"
-            target="_blank">Shopstyle</a>
-          <span style={styles.headline}>&nbsp;</span>
-          <span style={styles.headline}>at the same time.</span>
+          <span
+            className="headline">
+            Search Amazon and Shopstyle at the same time.
+          </span>
         </div>
         <form
           onSubmit={this.searchBarEntered.bind(this)}
@@ -191,20 +176,20 @@ class ProductSearch extends Component {
             type="text"
             placeholder="Search 1000s of brands..."
             style={styles.searchBar}
+            className="search-bar"
             onChange={this.searchTextChanged.bind(this)} />
         </form>
-        <div
-          style={styles.grid}
-          hidden={this.state.isLoading}>
-        {this.state.products.map((product, index) => (
-          <Product
-            key={index}
-            imageUrl={product.imageUrl}
-            title={product.title}
-            price={product.price}
-            outboundUrl={product.outboundUrl} />
-        ))}
-        </div>
+        <ul className="grid">
+          {this.state.products.map((product, index) => (
+            <li key={index}>
+              <Product
+                imageUrl={product.imageUrl}
+                title={product.title}
+                price={product.price}
+                outboundUrl={product.outboundUrl} />
+            </li>
+          ))}
+        </ul>
         <div
           className="loadMoreContainer"
           hidden={!this.state.isFirstPage || !this.state.isLoading}>

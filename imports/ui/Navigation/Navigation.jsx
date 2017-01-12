@@ -4,7 +4,6 @@ import './Navigation.css';
 
 const styles = {
   navContainer: {
-    height: 70,
     display: 'flex',
     flex: 1,
     flexDirection: 'column',
@@ -20,7 +19,6 @@ const styles = {
     display: 'flex',
     flex: 1,
     flexDirection: 'row',
-    height: 18,
     alignSelf: 'center',
     justifyContent: 'flex-end',
     alignItems: 'center',
@@ -29,12 +27,12 @@ const styles = {
     color: 'white',
     textDecoration: 'none',
   }
-}
+};
 
 class Navigation extends Component {
   render() {
     return (
-      <div style={styles.navContainer}>
+      <div style={styles.navContainer} className="nav-container">
         <div style={styles.horizontalContainer}>
           <IndexLink
             to="/"

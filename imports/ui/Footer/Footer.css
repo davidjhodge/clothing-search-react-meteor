@@ -1,5 +1,6 @@
 .footerContainer {
   height: 100px;
+  /*display: block;*/
 }
 
 .seperator {
@@ -15,6 +16,7 @@
   height: 48px;
   margin-left: 48px;
   padding-left: 0px;
+  float: left;
 }
 
 li {
@@ -26,8 +28,8 @@ li {
   text-decoration: none;
   color: #4A4A4A;
   font-family: 'Lato', sans-serif;
-  font-size: 14px;
-  letter-spacing: 0.5px;
+  font-size: calc(2*14px);
+  letter-spacing: calc(2*0.5px);
 }
 
 .link:hover {
@@ -41,30 +43,22 @@ li {
   margin-top: 30px;
   margin-right: 64px;
   letter-spacing: 0.5px;
+  float: right;
+  font-size: calc(2*14px);
+  margin-top: 0px;
+  padding-top: 16px;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-device-width: 768px) {
   /* Not Mobile */
   .footerText {
-    float: right;
-  }
-
-  .list {
-    float: left;
-  }
-}
-
-@media only screen and (max-width: 768px) {
-  /* Mobile */
-  .footerContainer {
-    display:block;
-  }
-
-  .footerText {
-    float: left;
+    font-size: 14px;
     margin-top: 0px;
-    margin-left: 48px;
-    padding-left: 16px;
-    padding-bottom: 32px;
+    padding-top: 16px;
+  }
+
+  .link {
+    font-size: 14px;
+    letter-spacing: 0.5px;
   }
 }
