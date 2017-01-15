@@ -5,7 +5,7 @@ import { Router, IndexRoute, Route, browserHistory } from 'react-router';
 import App from '../../ui/App/App.jsx';
 import ProductSearch from '../../ui/ProductSearch/ProductSearch.jsx';
 import About from '../../ui/About/About.jsx';
-import Contact from '../../ui/Contact.jsx';
+import Contact from '../../ui/Contact/Contact.jsx';
 import NotFound from '../../ui/NotFound/NotFound.jsx';
 
 Meteor.startup( () => {
