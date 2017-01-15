@@ -1,0 +1,37 @@
+.contents-container {
+  padding: 0px;
+  display: block;
+}
+
+.btn {
+  outline: none !important;
+}
+
+.btn:active .button:target {
+  outline: none !important;
+}
+
+.email-form {
+  height: calc(2*44px);
+  font-size: calc(2*16px);
+}
+
+.message-form {
+  font-size: calc(2*16px);
+}
+
+/* Not Mobile */
+@media (min-device-width: 768px) {
+  .contents-container {
+    padding: 24px;
+  }
+
+  .email-form {
+    height: 48px;
+    font-size: 16px;
+  }
+
+  .message-form {
+    font-size: 16px;
+  }
+}

@@ -1,5 +1,6 @@
 .parentContainer {
   height: 100%; /* cross-browser */
+  width: 100%;
 }
 
 .contentBackground {
@@ -9,10 +10,12 @@
   justify-content: center;
   margin: 0px;
   padding:0px;
+  width: 100%;
 }
 
 .contentsContainer {
   max-width: 944px;
   margin: 0px;
   padding: 0px;
+  width: 100%;
 }

@@ -3,7 +3,6 @@ import { awsSignature } from '../../utils/awsSignature.js';
 import { parseString } from 'xml2js';
 import { get } from 'lodash';
 
-
 export default class Api {
    static searchShopstyle(searchQuery, page, callback) {
     // Get products for a search query from searchShopstyle
