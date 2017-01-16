@@ -1,31 +1,57 @@
-.jumbotron-class {
-  background-color: white;
-  padding: 24px;
+h1 {
+  text-align: center;
+  padding: calc(2*24px);
+  font-family: 'Lato', sans-serif;
+  line-height: calc(2*48px);
+  word-spacing: calc(2*2.5px);
+  font-size: calc(2*36px);
 }
 
-.headline {
-  font-size: 20px;
+h3 {
+  font-size: calc(2*24px);
 }
 
-.headerImage {
-  /*width: 100vw;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;*/
+.content-container {
+  margin-bottom: 48px;
+  padding-left: calc(2*16px);
+  padding-right: calc(2*16px);
 }
 
-@media only screen and (min-width: 768px) {
+img {
+  max-height: 400px;
+  max-width: 100%;
+  width: 100%;
+  /*height: 100%;*/
+  object-fit: cover;
+  overflow: hidden;
+}
+
+.image-container {
+  min-height: 400px;
+  width: 100%;
+  margin-bottom: calc(2*24px);
+}
+
+p {
+  font-size: 16px;
+  font-family: 'Lato', sans-serif;
+}
+
+q {
+  font-style: italic;
+}
+
+br {
+  font-size: 16px;
+}
+
+@media (min-width: 768px) {
   /* Not Mobile */
-  .contentContainer {
-    /*padding: 24px;*/
+  p {
+    font-size: calc(2*16px);
   }
-}
 
-@media only screen and (max-width: 768px) {
-  /* Mobile */
-  .contentContainer {
-    /*padding: 8px;*/
+  br {
+    font-size: calc(2*16px);
   }
 }
