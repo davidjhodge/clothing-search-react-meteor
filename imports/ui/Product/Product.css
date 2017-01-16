@@ -1,20 +1,58 @@
+.card {
+  margin-right: calc(2*8px);
+  margin-bottom: calc(2*8px);
+  height: calc(2*249px);
+  min-width: calc(2*220px);
+  border-radius: calc(2*4px);
+  box-shadow: none;
+
+  :nth-child(2n) {
+    margin-right: 0px;
+  }
+}
+
+.card:hover {
+  box-shadow: none;
+}
+
+.productContents {
+  padding: 24px;
+  min-width: calc(2*148px);
+}
+
+.image-container {
+  max-height: calc(2*132px);
+}
+
+.image {
+  object-fit: contain;
+  width: calc(2*116px);
+  height: calc(2*132px);
+}
+
 .title {
+  font-size: calc(2*14px);
+  padding-top: calc(2*8px);
+  padding-bottom: calc(2*8px);
+  height: calc(2*48px);
   overflow: hidden;
   font-family: 'Lato', sans-serif;
 }
 
 .price {
+  font-size: calc(2*14px);
+  padding-top: calc(2*8px);
+  height: calc(2*20px);
   font-family: 'Lato', sans-serif;
 }
 
-@media only screen and (min-width: 768px) {
+@media (min-device-width: 768px) {
   /* Not Mobile */
   .card {
     margin: 8px;
     border-radius: 4px;
     width: 220px;
     height: 322px;
-    box-shadow: none;
     transition: box-shadow 0.3s;
   }
 
@@ -49,55 +87,5 @@
     font-size: 14px;
     padding-top: 8px;
     height: 20px;
-  }
-}
-
-/*@media only screen and (max-width: 768px) {*/
-@media
-(-webkit-min-device-pixel-ratio: 2),
-(min-resolution: 192dpi) {
-  /* Mobile */
-  .card {
-    margin-right: calc(2*8px);
-    margin-bottom: calc(2*8px);
-    height: calc(2*249px);
-    min-width: calc(2*220px);
-    border-radius: calc(2*4px);
-
-    :nth-child(2n) {
-      margin-right: 0px;
-    }
-  }
-
-  .card:hover {
-    box-shadow: none;
-  }
-
-  .productContents {
-    padding: 24px;
-    min-width: calc(2*148px);
-  }
-
-  .image-container {
-    max-height: calc(2*132px);
-  }
-
-  .image {
-    object-fit: contain;
-    width: calc(2*116px);
-    height: calc(2*132px);
-  }
-
-  .title {
-    font-size: calc(2*14px);
-    padding-top: calc(2*8px);
-    padding-bottom: calc(2*8px);
-    height: calc(2*48px);
-  }
-
-  .price {
-    font-size: calc(2*14px);
-    padding-top: calc(2*8px);
-    height: calc(2*20px);
   }
 }
