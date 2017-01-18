@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FormControl, FormGroup, ControlLabel } from 'react-bootstrap';
-import { RaisedButton } from 'material-ui';
+import { Button } from 'react-bootstrap';
 import { validateEmail } from '../../../utils/validate.js';
 import './Contact.css';
 
@@ -55,10 +55,11 @@ class Contact extends Component {
             className="message-form" />
         </FormGroup>
         <FormGroup>
-          <RaisedButton
-            label="Send Message"
+          <Button
             className="send-button"
-            onTouchTap={this.onSendClick.bind(this)} />
+            onClick={this.onSendClick.bind(this)}>
+            Send Message
+          </Button>
         </FormGroup>
       </div>
     );

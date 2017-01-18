@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Product from '../Product/Product.jsx';
 import { Spinner } from '../spinner/Spinner.jsx';
-import { RaisedButton } from 'material-ui';
+import { Button } from 'react-bootstrap';
 import ReactScrollPagination from 'react-scroll-pagination'
 import './ProductSearch.css';
 
@@ -41,7 +41,6 @@ const styles = {
   searchBar: {
     display: 'flex',
     flex: 1,
-    borderRadius: 4,
     borderColor: 'transparent',
     outline: 0,
     color: 'black',
@@ -153,10 +152,7 @@ class ProductSearch extends Component {
     // Changing the search query resets the page
     this.state.page = 1;
   }
-  // <span
-  //   style={styles.headline}>
-  //   Search Amazon and Shopstyle at the same time.
-  // </span>
+
   render() {
     // Check if this page is 1 (meaning the next page is 2)
     this.state.isFirstPage = (this.state.page == 2)
@@ -178,6 +174,14 @@ class ProductSearch extends Component {
             style={styles.searchBar}
             className="search-bar"
             onChange={this.searchTextChanged.bind(this)} />
+          <button
+            className="search-button"
+            onClick={this.currentSearch.bind(this)}
+            >
+            <img
+              src="images/search-glass.svg"
+              className="search-icon" />
+          </button>
         </form>
         <ul className="grid">
           {this.state.products.map((product, index) => (
@@ -193,10 +197,11 @@ class ProductSearch extends Component {
         <div
           className="loadMoreContainer"
           hidden={!this.state.isFirstPage || !this.state.isLoading}>
-          <RaisedButton
-            label="Load More"
+          <Button
             className="loadMore"
-            onTouchTap={this.currentSearch.bind(this)} />
+            onClick={this.currentSearch.bind(this)}>
+            Load More
+          </Button>
         </div>
         { !(this.state.page == 0 || this.state.isFirstPage) &&
             <ReactScrollPagination
