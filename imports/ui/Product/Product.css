@@ -2,9 +2,17 @@
   margin-right: calc(2*8px);
   margin-bottom: calc(2*8px);
   height: calc(2*249px);
-  min-width: calc(2*220px);
+  width: calc(100% - 16px);
+  /*min-width: calc(2*148px);*/
   border-radius: calc(2*4px);
   box-shadow: none;
+  align-items: center;
+  cursor: pointer;
+  color: black;
+  border-radius: 4px;
+  background-color: #ffffff;
+  text-align: center;
+  display: flex;
 
   :nth-child(2n) {
     margin-right: 0px;
@@ -15,38 +23,49 @@
   box-shadow: none;
 }
 
-.productContents {
-  padding: 24px;
-  min-width: calc(2*148px);
+a:hover {
+  text-decoration: none;
 }
 
-.image-container {
+.productContents {
+  padding: 24px;
+  height: calc(2*249px);
+  width: calc(2*148px);
+  align-items: center;
+  justify-content: center;
+}
+
+.img-container {
   max-height: calc(2*132px);
+  max-width: calc(2*116px);
+  padding-top: calc(2*8px);
+  padding-bottom: calc(2*8px);
 }
 
 .image {
   object-fit: contain;
   width: calc(2*116px);
-  height: calc(2*132px);
+  height: calc(2*132px - 32px);
 }
 
 .title {
   font-size: calc(2*14px);
-  padding-top: calc(2*8px);
-  padding-bottom: calc(2*8px);
-  height: calc(2*48px);
+  margin-top: calc(2*8px);
+  margin-bottom: calc(2*8px);
+  height: calc(2*44px);
+  display: block;
   overflow: hidden;
   font-family: 'Lato', sans-serif;
 }
 
 .price {
   font-size: calc(2*14px);
-  padding-top: calc(2*8px);
+  margin-top: calc(2*8px);
   height: calc(2*20px);
   font-family: 'Lato', sans-serif;
 }
 
-@media (min-device-width: 768px) {
+@media (min-width: 1000px) {
   /* Not Mobile */
   .card {
     margin: 8px;
@@ -54,6 +73,7 @@
     width: 220px;
     height: 322px;
     transition: box-shadow 0.3s;
+    overflow: hidden;
   }
 
   .card:hover {
@@ -65,27 +85,38 @@
     padding-left: 8px;
     padding-right: 8px;
     padding-bottom: 16px;
+    width: 220px;
+    height: 322px;
+    float: left;
   }
 
-  .image-container {
+  .img-container {
     max-height: 194px;
+    /*max-width: 172px;*/
+    display: block;
+    padding-top: 8px;
+    padding-bottom: 8px;
   }
 
   .image {
+    max-height: calc(194px - 16px);
     max-width: 172px;
-    max-height: 194px;
+    margin: 0 auto;
   }
 
   .title {
     font-size: 14px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    height: 50px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    height: 44px;
+    overflow: hidden;
+    display: block;
   }
 
   .price {
     font-size: 14px;
-    padding-top: 8px;
-    height: 20px;
+    margin-top: 8px;
+    height: 30px;
+    display: block;
   }
 }
