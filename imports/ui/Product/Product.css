@@ -7,6 +7,7 @@
   border-radius: calc(2*4px);
   box-shadow: none;
   align-items: center;
+  justify-content: center;
   cursor: pointer;
   color: black;
   border-radius: 4px;
@@ -68,7 +69,7 @@ a:hover {
 @media (min-width: 1000px) {
   /* Not Mobile */
   .card {
-    margin: 8px;
+    /*margin: 8px;*/
     border-radius: 4px;
     width: 220px;
     height: 322px;
@@ -87,7 +88,7 @@ a:hover {
     padding-bottom: 16px;
     width: 220px;
     height: 322px;
-    float: left;
+    /*float: left;*/
   }
 
   .img-container {

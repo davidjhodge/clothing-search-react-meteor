@@ -63,13 +63,13 @@ class Contact extends Component {
             className="message-form" />
         </FormGroup>
         <FormGroup>
-          <Button
-            className="send-button"
+          <button
+            className="uk-button uk-button-default send-button"
             hidden={this.state.messageSuccess}
             disabled={this.state.isLoading}
             onClick={this.onSendClick.bind(this)}>
             Send Message
-          </Button>
+          </button>
           <span
             className="send-loading"
             hidden={!this.state.isLoading}>

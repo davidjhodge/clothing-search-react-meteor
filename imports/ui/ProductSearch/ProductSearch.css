@@ -15,7 +15,7 @@
 }
 
 .loadMore:hover {
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 2px 3px 0 rgba(0,0,0,0.2);
   background-color: #ffffff;
 }
 
@@ -52,6 +52,11 @@
   width: 24px;
 }
 
+.search-container {
+  margin-left: calc(2*8px);
+  margin-right: calc(2*8px);
+}
+
 ul.grid {
   font-size: 0px;
   padding: 0px;
@@ -60,11 +65,10 @@ ul.grid {
 }
 
 ul.grid li {
-  max-width: 928px;
   display: inline-block;
   list-style: none;
-  margin-left: -8px;
-  margin-right: -8px;
+  margin-left: calc(2*8px);
+  margin-right: calc(2*8px);
   margin-top: 8px;
   margin-bottom: 8px;
   margin: 0;
@@ -115,11 +119,21 @@ li.card {
     padding-left: 16px;
   }
 
+  ul.grid {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
   li.card {
     width: 25%;
   }
 
   .search-button {
     width: 80px;
+  }
+
+  .search-container {
+    margin-left: 0px;
+    margin-right: 16px;
   }
 }

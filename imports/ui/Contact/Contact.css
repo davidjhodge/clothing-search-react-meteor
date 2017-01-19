@@ -33,8 +33,34 @@
   padding-left: 16px;
 }
 
+.send-button {
+  border-radius: 4px;
+  border-style: none;
+  background-image: none;
+  background-color: #4c85ee;
+  color: #ffffff;
+  /*height: 48px;*/
+  font-family: 'Lato', sans-serif;
+  font-size: 16px;
+  text-shadow: none;
+  box-shadow: none;
+  transition: box-shadow 0.3s;
+}
+
+.send-button:hover {
+  background-color: rgba(76,133,238, 0.8);
+  color: #ffffff;
+  box-shadow: 0 2px 3px 0 rgba(0,0,0,0.2);
+}
+
+.send-button:focus, .send-button:target, .send-button:focus:hover {
+  background-color: #4c85ee;
+  color: #ffffff;
+  box-shadow: none;
+}
+
 /* Not Mobile */
-@media (min-device-width: 768px) {
+@media (min-device-width: 1000px) {
   .contents-container {
     padding: 24px;
   }
@@ -55,5 +81,4 @@
   .contact-message-completion {
     font-size: 16px;
   }
-
 }
