@@ -55,8 +55,6 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'stretch',
     marginTop: 0,
-    marginLeft: 8,
-    marginRight: 8,
     marginBottom: 16,
   },
   grid: {
@@ -171,7 +169,8 @@ class ProductSearch extends Component {
         </div>
         <form
           onSubmit={this.searchBarEntered.bind(this)}
-          style={styles.searchContainer}>
+          style={styles.searchContainer}
+          className="search-container">
           <input
             type="text"
             placeholder="Search 1000s of brands..."
@@ -189,7 +188,8 @@ class ProductSearch extends Component {
         </form>
         <ul className="grid">
           {this.state.products.map((product, index) => (
-            <li key={index}>
+            <li
+              key={index}>
               <Product
                 imageUrl={product.imageUrl}
                 title={product.title}
@@ -215,5 +215,17 @@ class ProductSearch extends Component {
     );
   }
 }
+
+// <ul className="grid">
+//   {this.state.products.map((product, index) => (
+//     <li key={index}>
+//       <Product
+//         imageUrl={product.imageUrl}
+//         title={product.title}
+//         price={product.price}
+//         outboundUrl={product.outboundUrl} />
+//     </li>
+//   ))}
+// </ul>
 
 export default ProductSearch;
