@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="29px" height="29px" viewBox="0 0 29 29" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
+    <title>search-glass</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M0,11.4545455 C0,5.12837437 5.12837437,0 11.4545455,0 C17.7807165,0 22.9090909,5.12837437 22.9090909,11.4545455 C22.9090909,17.7807165 17.7807165,22.9090909 11.4545455,22.9090909 C5.12837437,22.9090909 0,17.7807165 0,11.4545455 Z" id="path-1"></path>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="22.9090909" height="22.9090909" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop" transform="translate(-914.000000, -218.000000)">
+            <g id="Search-&amp;-Headline" transform="translate(0.000000, 70.000000)">
+                <g id="Search-Button" transform="translate(880.000000, 130.000000)">
+                    <g id="search-glass" transform="translate(34.000000, 18.000000)">
+                        <rect id="Rectangle-4" fill="#FFFFFF" transform="translate(24.207107, 24.207107) rotate(46.000000) translate(-24.207107, -24.207107) " x="19.0502525" y="22.7071068" width="10.3137085" height="3" rx="1"></rect>
+                        <use id="Oval" stroke="#FFFFFF" mask="url(#mask-2)" stroke-width="5" xlink:href="#path-1"></use>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

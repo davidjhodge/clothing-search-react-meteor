@@ -21,6 +21,18 @@
   height: 150px;
 }
 
+#span-container {
+  margin-top: calc(2*32px);
+}
+
+.contact-message-completion {
+  font-size: calc(2*16px);
+}
+
+.send-loading {
+  padding-left: 16px;
+}
+
 /* Not Mobile */
 @media (min-device-width: 768px) {
   .contents-container {
@@ -35,4 +47,13 @@
   .message-form {
     font-size: 16px;
   }
+
+  #span-container {
+    margin-top: 32px;
+  }
+
+  .contact-message-completion {
+    font-size: 16px;
+  }
+
 }
