@@ -4,7 +4,8 @@
 }
 
 .contentBackground {
-  min-height: calc(100% - 100px - 70px - 48px);
+  /* Nav bar is 70px. Footer is 140px. 48px must be margin */
+  min-height: calc(100% - 140px - 70px - 48px);
   background-color: #f5f5f5;
   display: flex;
   justify-content: center;

@@ -87,7 +87,7 @@ class ProductSearch extends Component {
 
   // This executes after the component renders (is mounted)
   componentDidMount() {
-    this.executeSearch(this.state.searchString, this.state.page);
+    this.currentSearch();
   }
 
   searchBarEntered(event) {
@@ -101,12 +101,16 @@ class ProductSearch extends Component {
     this.executeSearch(this.state.searchString, this.state.page);
   }
 
-  executeSearch(searchString, page) {
+  loadMore() {
     // Abort request if pagination is already occuring for this query
-    if (this.isLoading && searchString == this.state.lastSearch) {
+    if (this.state.isLoading && this.state.searchString == this.state.lastSearch) {
       return;
     }
 
+    this.executeSearch(this.state.searchString, this.state.page)
+  }
+
+  executeSearch(searchString, page) {
     if (searchString.length > 0 && page > 0) {
       // Start spinner
       this.state.isLoading = true;
@@ -197,15 +201,15 @@ class ProductSearch extends Component {
         <div
           className="loadMoreContainer"
           hidden={!this.state.isFirstPage || !this.state.isLoading}>
-          <Button
-            className="loadMore"
+          <button
+            className="uk-button uk-button-default loadMore"
             onClick={this.currentSearch.bind(this)}>
             Load More
-          </Button>
+          </button>
         </div>
-        { !(this.state.page == 0 || this.state.isFirstPage) &&
+        { !(this.state.page == 1 || this.state.isFirstPage) &&
             <ReactScrollPagination
-              fetchFunc={this.currentSearch.bind(this)} />
+              fetchFunc={this.loadMore.bind(this)} />
         }
       </div>
     );

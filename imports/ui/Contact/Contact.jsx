@@ -11,19 +11,27 @@ class Contact extends Component {
     super(props);
     this.state = {
       email: "",
-      message: ""
+      message: "",
+      messageSuccess: false, // On a successfully sent message
+      isLoading: false,
+
     };
   }
 
   onSendClick() {
     // Check if email input is valid and if message has any content
     if (validateEmail(this.state.email) && this.state.message.length > 0) {
+      this.setState({ isLoading: true });
       Meteor.call('sendContactForm', this.state.email, this.state.message, (error,response) => {
         if (error) {
           console.error(error);
         } else {
           console.log("Contact Form Email sent successfully");
+          this.setState({
+            messageSuccess: true
+          });
         }
+        this.setState({ isLoading: false });
       });
     }
   }
@@ -57,10 +65,22 @@ class Contact extends Component {
         <FormGroup>
           <Button
             className="send-button"
+            hidden={this.state.messageSuccess}
+            disabled={this.state.isLoading}
             onClick={this.onSendClick.bind(this)}>
             Send Message
           </Button>
+          <span
+            className="send-loading"
+            hidden={!this.state.isLoading}>
+            Sending...</span>
         </FormGroup>
+        <div id="span-container" hidden={!this.state.messageSuccess}>
+          <span
+            className="contact-message-completion">
+            Thanks for reaching out! We'll get back to you as soon as we can.
+          </span>
+        </div>
       </div>
     );
   }

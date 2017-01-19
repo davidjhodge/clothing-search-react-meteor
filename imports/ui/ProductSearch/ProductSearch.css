@@ -40,6 +40,7 @@
   background-color: #FFCA35;
   border-color: clear;
   border-width: 0px;
+  outline: none;
 }
 
 .search-button:hover {
@@ -88,6 +89,16 @@ li.card {
   border-bottom-left-radius: 4px;
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
+  transition: box-shadow 0.3s;
+  box-shadow: none;
+}
+
+.search-bar:hover {
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.2);
+}
+
+.search-bar:focus {
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.2);
 }
 
 /* Not Mobile */
