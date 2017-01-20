@@ -9,8 +9,9 @@ export default class Api {
     check(searchQuery, String);
     check(page, Number);
 
-    // Page number is page - 1
-    page = page - 1;
+    // Page number is (page - 1) * limit
+    limit = 10
+    page = (page - 1) * limit;
 
     var baseUrl = 'https://api.shopstyle.com/api/v2/products'
     // Make http call
@@ -19,7 +20,7 @@ export default class Api {
         "fts": searchQuery,
         "offset": page,
         "limit": 10,
-        "pid": "uid625-33622625-46"
+        "pid": Meteor.settings.shopstyle.pid
       }
     }, function(error, response) {
       if (error) {
@@ -60,11 +61,11 @@ export default class Api {
     }
 
     var date = new Date();
-
+    console.log(JSON.stringify(Meteor.settings));
     var baseUrl = "http://ecs.amazonaws.com/onca/xml"
     var params = [];
-    params.push("AWSAccessKeyId=" + "AKIAI5UXYO3ULRMQ56TQ");
-    params.push("AssociateTag=" + "PutYourAssociateTagHere"); // TODO
+    params.push("AWSAccessKeyId=" + Meteor.settings.amazon.AWSAccessKeyId);
+    params.push("AssociateTag=" + Meteor.settings.amazon.AssociateTag);
     params.push("Keywords=" + encodeURIComponent(searchQuery));
     params.push("Operation=" + "ItemSearch");
     params.push("ResponseGroup=" +encodeURIComponent("Images,ItemAttributes"));
