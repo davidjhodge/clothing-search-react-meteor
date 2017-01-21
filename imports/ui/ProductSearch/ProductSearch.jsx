@@ -200,7 +200,7 @@ class ProductSearch extends Component {
         </ul>
         <div
           className="loadMoreContainer"
-          hidden={!this.state.isFirstPage || !this.state.isLoading}>
+          hidden={!this.state.isFirstPage}>
           <button
             className="uk-button uk-button-default loadMore"
             onClick={this.currentSearch.bind(this)}>

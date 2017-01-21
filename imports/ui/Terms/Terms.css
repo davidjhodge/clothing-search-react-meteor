@@ -1,0 +1,18 @@
+h1, h2, h3, h4, p, br, address {
+  font-family: "Lato", sans-serif;
+}
+
+.terms-container {
+  padding-top: 48px;
+  padding-bottom: 48px;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+@media only screen and (min-device-width: 768px) {
+
+  .terms-container {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}

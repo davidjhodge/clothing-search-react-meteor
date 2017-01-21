@@ -3,8 +3,6 @@ import { HTTP } from 'meteor/http';
 var Future = Npm.require("fibers/future");
 import Api from './api.js';
 
-export const Products = new Mongo.Collection('products');
-
 if (Meteor.isServer) {
   Meteor.methods({
     'aggregateSearch'(searchQuery, page) {
@@ -25,7 +23,7 @@ if (Meteor.isServer) {
               if (error) {
                 console.error(error);
               } else {
-    
+
                 future.return(response);
               }
             });
@@ -66,10 +64,6 @@ if (Meteor.isServer) {
 
       // Merges the results of all product arrays
       allProducts = [].concat.apply([], results);
-      // allProducts = results[0].concat(results[1]);
-      // allProducts.forEach(function(product) {
-      //   console.log(product["id"].toString());
-      // });
 
       return allProducts;
     }
