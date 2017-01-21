@@ -14,7 +14,7 @@
 ul.list {
   list-style-type: none;
   height: 48px;
-  width: 180px;
+  width: calc(2*180px);
   margin-left: 48px;
   margin-top: 16px;
   padding-left: 0px;
@@ -24,10 +24,11 @@ ul.list {
 
 li.link {
   padding: 16px;
-  padding-right: 24px;
+  padding-right: 8px;
   float: left;
   display: inline-block;
   overflow: hidden;
+  width: 180px;
 }
 
 ul > li {
@@ -35,7 +36,7 @@ ul > li {
   padding-right: 24px;
 }
 
-.link {
+.link, .active-link {
   text-decoration: none;
   color: #4A4A4A;
   font-family: 'Lato', sans-serif;
@@ -43,8 +44,13 @@ ul > li {
   letter-spacing: calc(2*0.5px);
 }
 
-.link:hover {
+.link:hover, .active-link:hover, .link:focus:hover {
   color: #9B9B9B;
+  text-decoration: none;
+}
+
+.link:focus {
+  color: #4A4A4A;
   text-decoration: none;
 }
 
@@ -82,9 +88,13 @@ ul > li {
     /*padding-top: 16px;*/
   }
 
-  .link {
+  .link, .active-link {
     font-size: 14px;
     letter-spacing: 0.5px;
+  }
+
+  li.link, li.active-link {
+    width: auto;
   }
 
   .affiliate-disclaimer {
@@ -94,6 +104,6 @@ ul > li {
   }
 
   ul.list {
-    width: calc(2*180px);
+    width: calc(2*200px);
   }
 }

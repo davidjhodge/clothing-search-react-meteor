@@ -35,6 +35,8 @@ img {
 p {
   font-size: 20px;
   font-family: 'Lato', sans-serif;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 
 q {
