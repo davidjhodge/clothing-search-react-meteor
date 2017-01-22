@@ -13,7 +13,7 @@ class About extends Component {
           </h1>
         </div>
         <div className="image-container">
-          <img src="images/about_compressed.jpg" />
+          <img src="images/vision_header.jpg" />
         </div>
         <div>
           <h3>Humans understand context -- machines don't</h3>
@@ -54,6 +54,5 @@ class About extends Component {
     );
   }
 }
-// <img className="headerImage" src={'/images/about_compressed.jpg'}></img>
 
 export default About;
