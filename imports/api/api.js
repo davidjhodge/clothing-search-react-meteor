@@ -37,6 +37,7 @@ export default class Api {
             simple["title"] = product["brandedName"];
             simple["brand"] = get(product, "brand.name");
             simple["price"] = product["priceLabel"];
+            simple["salePrice"] = product["salePriceLabel"];
             simple["imageUrl"] = get(product, "image.sizes.Large.url");
             simple["outboundUrl"] = product["clickUrl"];
             simple["source"] = "shopstyle";
@@ -61,14 +62,13 @@ export default class Api {
     }
 
     var date = new Date();
-    console.log(JSON.stringify(Meteor.settings));
     var baseUrl = "http://ecs.amazonaws.com/onca/xml"
     var params = [];
     params.push("AWSAccessKeyId=" + Meteor.settings.amazon.AWSAccessKeyId);
     params.push("AssociateTag=" + Meteor.settings.amazon.AssociateTag);
     params.push("Keywords=" + encodeURIComponent(searchQuery));
     params.push("Operation=" + "ItemSearch");
-    params.push("ResponseGroup=" +encodeURIComponent("Images,ItemAttributes"));
+    params.push("ResponseGroup=" +encodeURIComponent("Images,ItemAttributes,Offers"));
     params.push("SearchIndex=" + "Fashion");
     params.push("ItemPage=" + page.toString())
     params.push("Service=" + "AWSECommerceService");
@@ -110,6 +110,7 @@ export default class Api {
                   simple["title"] = get(item, 'ItemAttributes[0].Title[0]');
                   simple["brand"] = get(item, 'ItemAttributes[0].Brand[0]');
                   simple["price"] = get(item, 'ItemAttributes[0].ListPrice[0].FormattedPrice[0]');
+                  simple["salePrice"] = null;
                   simple["imageUrl"] = get(item, 'MediumImage[0].URL[0]');
                   simple["outboundUrl"] = get(item, 'DetailPageURL[0]');
                   simple["source"] = "amazon";

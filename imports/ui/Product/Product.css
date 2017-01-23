@@ -66,6 +66,10 @@ a:hover {
   font-family: 'Lato', sans-serif;
 }
 
+.salePrice {
+  color: #D0011B;
+}
+
 @media (min-width: 1000px) {
   /* Not Mobile */
   .card {
