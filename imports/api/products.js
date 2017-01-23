@@ -14,7 +14,7 @@ if (Meteor.isServer) {
       var numRequests = 2
       var range = _.range(numRequests);
       var futures = _.map(range, function(index) {
-      var future = new Future();
+        var future = new Future();
 
         switch (index) {
           // Get results from Shopstyle
@@ -66,6 +66,47 @@ if (Meteor.isServer) {
       allProducts = [].concat.apply([], results);
 
       return allProducts;
+    },
+    'typeaheadSearch'(searchQuery) {
+      check(searchQuery, String);
+
+      var baseUrl = 'https://api.shopstyle.com/api/v2/products'
+
+      var future = new Future();
+      // Make http call
+      HTTP.get(baseUrl, {
+        "params": {
+          "fts": searchQuery,
+          "limit": 10,
+          "pid": Meteor.settings.shopstyle.pid
+        }
+      }, function(error, response) {
+        if (error) {
+          callback(error, null);
+          console.log(error);
+        } else {
+          products = response.data.products;
+          if (products && products != 'undefined') {
+            // Product response object exists
+            var suggestedSearches = []
+            products.forEach(function(product) {
+              title = product["brandedName"];
+              if (title != 'undefined') {
+                suggestedSearches.push(title);
+              }
+            });
+            future.return(suggestedSearches);
+          } else {
+            // Product response does not exist
+            console.log("Response object is undefined.");
+            future.return([]);
+          }
+        }
+      });
+
+      future.wait();
+      // Returns either an empty array or a list of searches
+      return future.value;
     }
   });
 }
@@ -73,6 +114,9 @@ if (Meteor.isServer) {
 if (Meteor.isClient) {
   Meteor.methods({
     'aggregateSearch'(searchQuery, page) {
+
+    },
+    'typeaheadSearch'(searchQuery) {
 
     },
   });

@@ -77,6 +77,7 @@ class ProductSearch extends Component {
     this.state =  {
       searchString: "mens clothes",
       products: [],
+      suggestedSearches: [],
       page: 1,
       isLoading: false,
       isFirstPage: false, // Button should show on first results page only
@@ -152,8 +153,21 @@ class ProductSearch extends Component {
     // Each time the text field changes, update the state
     searchText = event.target.value;
     this.state.searchString = searchText;
+    // Update autocomplete with typeahead search
+    this.typeaheadSearch();
     // Changing the search query resets the page
     this.state.page = 1;
+  }
+
+  typeaheadSearch() {
+    Meteor.call('typeaheadSearch', this.state.searchString, (error,response) => {
+      console.log(JSON.stringify(response));
+      if (!error) {
+        this.setState({
+          suggestedSearches: response
+        });
+      }
+    });
   }
 
   render() {
@@ -218,18 +232,6 @@ class ProductSearch extends Component {
     );
   }
 }
-
-// <ul className="grid">
-//   {this.state.products.map((product, index) => (
-//     <li key={index}>
-//       <Product
-//         imageUrl={product.imageUrl}
-//         title={product.title}
-//         price={product.price}
-//         outboundUrl={product.outboundUrl} />
-//     </li>
-//   ))}
-// </ul>
 
 export default createContainer(() => {
   return {
