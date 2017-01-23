@@ -17,6 +17,7 @@
     "nodemailer": "^2.7.0",
     "prerender-node": "^2.7.0",
     "react": "^15.4.2",
+    "react-addons-pure-render-mixin": "^15.4.2",
     "react-bootstrap": "^0.30.7",
     "react-ga": "^2.1.2",
     "react-grid-layout": "^0.13.9",

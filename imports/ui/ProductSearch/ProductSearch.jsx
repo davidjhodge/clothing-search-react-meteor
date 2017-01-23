@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { createContainer } from 'meteor/react-meteor-data';
 import Product from '../Product/Product.jsx';
 import { Spinner } from '../spinner/Spinner.jsx';
 import { Button } from 'react-bootstrap';
@@ -195,6 +196,7 @@ class ProductSearch extends Component {
                 imageUrl={product.imageUrl}
                 title={product.title}
                 price={product.price}
+                {...this.props.currentUser ? {salePrice: product.salePrice} : {}}
                 outboundUrl={product.outboundUrl} />
             </li>
           ))}
@@ -229,4 +231,8 @@ class ProductSearch extends Component {
 //   ))}
 // </ul>
 
-export default ProductSearch;
+export default createContainer(() => {
+  return {
+    currentUser: Meteor.user(),
+  };
+}, ProductSearch);

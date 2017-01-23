@@ -12,6 +12,24 @@ div#login-buttons-password.login-button.login-button-form-submit:hover {
   background-color: rgba(76, 133, 238, 0.75);
 }
 
+div#login-buttons-logout.login-button {
+  background-color: #D0011B;
+  border: 0px;
+}
+
+div#login-buttons-logout.login-button:hover {
+  background-color: rgba(208, 2, 27, 0.75);
+}
+
+div#login-buttons-open-change-password.login-button {
+  background-color: rgba(190, 190, 190, 1);
+  border: 0px;
+}
+
+div#login-buttons-open-change-password.login-button:hover {
+  background-color: rgba(190, 190, 190, 0.75);
+}
+
 .login-link-text {
   color: #ffffff;
   text-decoration: none;
