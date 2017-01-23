@@ -161,6 +161,7 @@ class ProductSearch extends Component {
 
     return (
       <div style={styles.pageContainer}>
+        <h1 hidden={true}>Search Clothing</h1>
         <div style={styles.headlineContainer}>
           <span
             className="headline">

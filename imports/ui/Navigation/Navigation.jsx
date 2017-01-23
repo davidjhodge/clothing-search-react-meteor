@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { IndexLink, Link } from 'react-router';
+import AccountsUIWrapper from '../Accounts/AccountsUIWrapper.jsx';
 import './Navigation.css';
 
 const styles = {
@@ -47,6 +48,7 @@ class Navigation extends Component {
               to="/contact"
               activeStyle={styles.activeLink}
               className="nav-link">Contact</Link>
+            <AccountsUIWrapper />
           </div>
         </div>
       </div>
