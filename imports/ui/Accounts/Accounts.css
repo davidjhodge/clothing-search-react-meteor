@@ -1,0 +1,35 @@
+#login-buttons {
+  padding: 16px;
+}
+
+div#login-buttons-password.login-button.login-button-form-submit {
+  font-family: "Lato", sans-serif;
+  background-color: #4C85EE;
+  border: 0px;
+}
+
+div#login-buttons-password.login-button.login-button-form-submit:hover {
+  background-color: rgba(76, 133, 238, 0.75);
+}
+
+.login-link-text {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.login-link-text:hover {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.login-button {
+  font-family: "Lato", sans-serif;
+}
+
+#login-buttons a, .accounts-dialog a {
+  text-decoration: none;
+  font-family: "Lato", sans-serif;
+}
+
+.or-text, #login-password-label, #login-password-label {
+  font-family: "Lato", sans-serif;
+}
