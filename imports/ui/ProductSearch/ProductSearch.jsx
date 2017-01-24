@@ -3,7 +3,8 @@ import { createContainer } from 'meteor/react-meteor-data';
 import Product from '../Product/Product.jsx';
 import { Spinner } from '../spinner/Spinner.jsx';
 import { Button } from 'react-bootstrap';
-import ReactScrollPagination from 'react-scroll-pagination'
+import ReactScrollPagination from 'react-scroll-pagination';
+import { Typeahead } from 'react-bootstrap-typeahead';
 import './ProductSearch.css';
 
 const styles = {
@@ -149,9 +150,9 @@ class ProductSearch extends Component {
     }
   }
 
-  searchTextChanged(event) {
+  searchTextChanged(searchText) {
     // Each time the text field changes, update the state
-    searchText = event.target.value;
+    // searchText = event.target.value;
     this.state.searchString = searchText;
     // Update autocomplete with typeahead search
     this.typeaheadSearch();
@@ -170,9 +171,22 @@ class ProductSearch extends Component {
     });
   }
 
+  typeaheadSelected(selections) {
+    console.log(selections[0]);
+    this.state.searchString = selections[0]
+    this.currentSearch();
+  }
+
   render() {
     // Check if this page is 1 (meaning the next page is 2)
     this.state.isFirstPage = (this.state.page == 2)
+
+    // <input
+    //   type="text"
+    //   placeholder="Search 1000s of brands..."
+    //   style={styles.searchBar}
+    //   className="search-bar"
+    //   onChange={this.searchTextChanged.bind(this)} />
 
     return (
       <div style={styles.pageContainer}>
@@ -187,12 +201,16 @@ class ProductSearch extends Component {
           onSubmit={this.searchBarEntered.bind(this)}
           style={styles.searchContainer}
           className="search-container">
-          <input
-            type="text"
+          <Typeahead
             placeholder="Search 1000s of brands..."
+            onInputChange={this.searchTextChanged.bind(this)}
+            onChange={this.typeaheadSelected.bind(this)}
+            options={this.state.suggestedSearches}
+            emptyLabel=""
+            minLength={2}
             style={styles.searchBar}
             className="search-bar"
-            onChange={this.searchTextChanged.bind(this)} />
+            />
           <button
             className="search-button"
             onClick={this.currentSearch.bind(this)}
