@@ -1,0 +1,44 @@
+.filter-container {
+  visibility: hidden;
+}
+
+span.filter-title {
+  font-size: 14px;
+  font-weight: bold;
+  display: block;
+}
+
+div.filter-section {
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+
+ul.filter-list {
+  padding-left: 0px;
+  padding-top: 12px;
+}
+
+ul.filter-list li {
+  display: block;
+}
+
+label.filter-item {
+  font-weight: normal;
+}
+
+input.filter-checkbox {
+  margin-right: 12px;
+}
+
+@media (min-width: 1000px) {
+  .filter-container {
+    visibility: visible;
+    width: 25%;
+    float: left;
+    background: transparent;
+    max-width: 264px;
+    padding-top: 8px;
+    padding-right: 32px;
+    padding-left: 32px;
+  }
+}

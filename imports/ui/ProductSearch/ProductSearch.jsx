@@ -1,9 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
+import { Button } from 'react-bootstrap';
+import ReactScrollPagination from 'react-scroll-pagination';
+
 import Product from '../Product/Product.jsx';
 import { Spinner } from '../spinner/Spinner.jsx';
-import { Button } from 'react-bootstrap';
-import ReactScrollPagination from 'react-scroll-pagination'
+import Filter from '../Filter/Filter.jsx';
 import './ProductSearch.css';
 
 const styles = {
@@ -175,59 +177,62 @@ class ProductSearch extends Component {
     this.state.isFirstPage = (this.state.page == 2)
 
     return (
-      <div className="constrained" style={styles.pageContainer}>
-        <h1 hidden={true}>Search Clothing</h1>
-        <div style={styles.headlineContainer}>
-          <span
-            className="headline">
-            Search Amazon and Shopstyle at the same time.
-          </span>
+      <div className="product-search-container">
+        <Filter />
+        <div className="constrained" style={styles.pageContainer}>
+          <h1 hidden={true}>Search Clothing</h1>
+          <div style={styles.headlineContainer}>
+            <span
+              className="headline">
+              Search Amazon and Shopstyle at the same time.
+            </span>
+          </div>
+          <form
+            onSubmit={this.searchBarEntered.bind(this)}
+            style={styles.searchContainer}
+            className="search-container">
+            <input
+              type="text"
+              placeholder="Search 1000s of brands..."
+              style={styles.searchBar}
+              className="search-bar"
+              onChange={this.searchTextChanged.bind(this)} />
+            <button
+              className="search-button"
+              onClick={this.currentSearch.bind(this)}
+              >
+              <img
+                src="images/search-glass.svg"
+                className="search-icon" />
+            </button>
+          </form>
+          <ul className="grid">
+            {this.state.products.map((product, index) => (
+              <li
+                key={index}>
+                <Product
+                  imageUrl={product.imageUrl}
+                  title={product.title}
+                  price={product.price}
+                  {...this.props.currentUser ? {salePrice: product.salePrice} : {}}
+                  outboundUrl={product.outboundUrl} />
+              </li>
+            ))}
+          </ul>
+          <div
+            className="loadMoreContainer"
+            hidden={!this.state.isFirstPage}>
+            <button
+              className="uk-button uk-button-default loadMore"
+              onClick={this.currentSearch.bind(this)}>
+              Load More
+            </button>
+          </div>
+          { !(this.state.page == 1 || this.state.isFirstPage) &&
+              <ReactScrollPagination
+                fetchFunc={this.loadMore.bind(this)} />
+          }
         </div>
-        <form
-          onSubmit={this.searchBarEntered.bind(this)}
-          style={styles.searchContainer}
-          className="search-container">
-          <input
-            type="text"
-            placeholder="Search 1000s of brands..."
-            style={styles.searchBar}
-            className="search-bar"
-            onChange={this.searchTextChanged.bind(this)} />
-          <button
-            className="search-button"
-            onClick={this.currentSearch.bind(this)}
-            >
-            <img
-              src="images/search-glass.svg"
-              className="search-icon" />
-          </button>
-        </form>
-        <ul className="grid">
-          {this.state.products.map((product, index) => (
-            <li
-              key={index}>
-              <Product
-                imageUrl={product.imageUrl}
-                title={product.title}
-                price={product.price}
-                {...this.props.currentUser ? {salePrice: product.salePrice} : {}}
-                outboundUrl={product.outboundUrl} />
-            </li>
-          ))}
-        </ul>
-        <div
-          className="loadMoreContainer"
-          hidden={!this.state.isFirstPage}>
-          <button
-            className="uk-button uk-button-default loadMore"
-            onClick={this.currentSearch.bind(this)}>
-            Load More
-          </button>
-        </div>
-        { !(this.state.page == 1 || this.state.isFirstPage) &&
-            <ReactScrollPagination
-              fetchFunc={this.loadMore.bind(this)} />
-        }
       </div>
     );
   }
