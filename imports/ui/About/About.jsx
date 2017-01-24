@@ -5,7 +5,7 @@ import './About.css';
 class About extends Component {
   render() {
     return (
-      <div className="content-container">
+      <div className="constrained content-container">
         <div>
           <h1>
             Our mission is to bring the context behind clothing and style to the

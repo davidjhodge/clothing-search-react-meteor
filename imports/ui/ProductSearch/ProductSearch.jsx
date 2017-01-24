@@ -175,7 +175,7 @@ class ProductSearch extends Component {
     this.state.isFirstPage = (this.state.page == 2)
 
     return (
-      <div style={styles.pageContainer}>
+      <div className="constrained" style={styles.pageContainer}>
         <h1 hidden={true}>Search Clothing</h1>
         <div style={styles.headlineContainer}>
           <span

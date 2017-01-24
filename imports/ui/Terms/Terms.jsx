@@ -4,7 +4,7 @@ import './Terms.css';
 class Terms extends Component {
   render() {
     return (
-      <div className="terms-container">
+      <div className="constrained terms-container">
         <h2>Terms and Conditions</h2>
         <p>These terms and conditions outline the rules and regulations for the use of Layers&#39;s Website. <br />Layers is located at:</p>
         <address>216 Sweet Gum Rd , <br />Columbia, South Carolina 29223<br />United States</address>
