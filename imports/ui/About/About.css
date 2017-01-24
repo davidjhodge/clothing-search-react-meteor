@@ -11,6 +11,13 @@ h3 {
   font-size: 24px;
 }
 
+.constrained {
+  max-width: 944px;
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+}
+
 .content-container {
   margin-bottom: 48px;
   padding-left: calc(2*16px);

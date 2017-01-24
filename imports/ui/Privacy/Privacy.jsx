@@ -4,7 +4,7 @@ import './Privacy.css';
 class Privacy extends Component {
   render() {
     return (
-      <div className="privacy-container">
+      <div className="constrained privacy-container">
         <h1 className="privacy-headline">Privacy Policy</h1>
         <h3>We keep your information safe.</h3>
         Layers is located at:<br/>

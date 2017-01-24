@@ -46,7 +46,7 @@ class Contact extends Component {
 
   render() {
     return(
-      <div className="contents-container">
+      <div className="constrained contents-container">
         <FormGroup controlId="email">
           <FormControl
             type="email"
