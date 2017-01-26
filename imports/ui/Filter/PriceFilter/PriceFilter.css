@@ -1,0 +1,26 @@
+input.price-input {
+  border-radius: 4px;
+  padding: 4px;
+  border: 1px;
+  border-color: #9B9B9B;
+  background-image: none;
+  width: 60px;
+  height: 32px;
+  transition: box-shadow 0.3s;
+  box-shadow: none;
+}
+
+input.price-input:hover {
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.2);
+}
+
+input.price-input:focus {
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.2);
+  outline-color: transparent;
+  outline-style: none;
+}
+
+#to-separator {
+  margin-left: 12px;
+  margin-right: 12px;
+}

@@ -1,41 +1,36 @@
 import React, { Component } from 'react';
-import { Typeahead } from 'react-bootstrap-typeahead';
 import '../Filter.css';
 
-class BrandList extends Component {
+class CategoryList extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      brands: [],
+      categories: [],
       selections: [],
-      searchString: "",
     };
   }
 
+  // This executes after the component renders (is mounted)
   componentDidMount() {
-    this.getBrands();
+    this.getCategories();
   }
 
-  getBrands() {
-    Meteor.call('fetchBrands', (error, response) => {
+  getCategories() {
+    Meteor.call('fetchCategories', (error, response) => {
       if (!error) {
         this.setState({
-          brands: response
+          categories: response
         });
       }
     });
   }
 
-  searchTextChanged(text) {
-    this.state.searchString = text;
-  }
-
   inputToggle(event) {
     var checkbox = event.target;
-    brandId = checkbox.value;
+    categoryId = checkbox.value;
     // Add category if it does not exist. If it does exist, remove it
-    index = this.state.selections.indexOf(brandId);
+    index = this.state.selections.indexOf(categoryId);
     selections = this.state.selections;
 
     if (index > -1) {
@@ -51,31 +46,25 @@ class BrandList extends Component {
     });
 
     // Update parent component
-    this.props.onBrandSelection(this.state.selections);
+    this.props.onCategoryChange(this.state.selections);
   }
 
   render() {
     return (
       <div className="filter-section">
-        <span className="filter-title">BRANDS</span>
-        <Typeahead
-          placeholder="Search brands..."
-          onInputChange={this.searchTextChanged.bind(this)}
-          onChange={this.props.onBrandSelection}
-          options={this.state.brands.map(function(brand) { return brand.name; })}
-          emptyLabel="" />
+        <span className="filter-title">CATEGORIES</span>
         <form>
           <ul className="filter-list">
-            {this.state.brands.map((brand, index) => (
+            {this.state.categories.map((category, index) => (
               <li key={index}>
                 <label className="filter-item">
                   <input
                     className="filter-checkbox"
                     name="category"
                     type="checkbox"
-                    value={brand.id}
+                    value={category.id}
                     onClick={this.inputToggle.bind(this)} />
-                  {brand.name}
+                  {category.shortName}
                 </label>
               </li>
             ))}
@@ -86,4 +75,4 @@ class BrandList extends Component {
   }
 }
 
-export default BrandList;
+export default CategoryList;

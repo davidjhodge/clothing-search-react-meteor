@@ -13,8 +13,8 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     flex: 1,
-    justifyContent: 'center',
-    alignSelf: 'center',
+    justifyContent: 'flex-start',
+    alignSelf: 'flex-start',
     alignItems: 'center',
   },
   headlineContainer: {
@@ -71,6 +71,12 @@ const styles = {
     alignSelf: 'center',
     maxWidth: 968,
   },
+  horizontalCentering: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+  }
 };
 
 class ProductSearch extends Component {
@@ -84,6 +90,8 @@ class ProductSearch extends Component {
       isLoading: false,
       isFirstPage: false, // Button should show on first results page only
       lastSearch: '',
+      filters: {"categories": [], "brands": []},
+      lastFilters: {},
     };
   }
 
@@ -109,7 +117,7 @@ class ProductSearch extends Component {
       return;
     }
 
-    this.executeSearch(this.state.searchString, this.state.page)
+    this.executeSearch(this.state.searchString, this.state.page);
   }
 
   executeSearch(searchString, page) {
@@ -117,13 +125,17 @@ class ProductSearch extends Component {
       // Start spinner
       this.state.isLoading = true;
       // Make API call
-      Meteor.call('aggregateSearch', searchString, this.state.page, (error,response) => {
+      Meteor.call('aggregateSearch', searchString,
+        this.state.page,
+        this.state.filters,
+        (error,response) => {
         if (error) {
           console.log(error);
         } else {
           // response is an array of simple products
           // If the last search is the same as this one, paginate
-          if (this.state.lastSearch == searchString) {
+          if (this.state.lastSearch == searchString &&
+              this.state.lastFilters == this.state.filters) {
             // Append products from existing response
             var arrayCopy = this.state.products.slice();
             arrayCopy.push.apply(arrayCopy, response),
@@ -139,6 +151,8 @@ class ProductSearch extends Component {
           }
           // Now this is the last searched string
           this.state.lastSearch = searchString;
+          // And these are the last filters
+          this.state.lastFilters = this.state.filters;
           // Increment page
           nextPage = page + 1;
           this.setState({
@@ -172,66 +186,85 @@ class ProductSearch extends Component {
     });
   }
 
+  // Filtering
+  filtersUpdated(categories, prices, brands) {
+    var newFilters = {
+      "categories": categories,
+      "brands": brands
+    };
+    // if (prices.min || prices.max) {
+    //   filters["prices"] = { "min": prices.min, "max": prices.max};
+    // } else {
+    //   filters["prices"] = {};
+    // }
+
+    this.state.filters = newFilters;
+    this.state.page = 1;
+    this.currentSearch();
+  }
+
   render() {
     // Check if this page is 1 (meaning the next page is 2)
     this.state.isFirstPage = (this.state.page == 2)
 
     return (
       <div className="product-search-container">
-        <Filter />
-        <div className="constrained" style={styles.pageContainer}>
-          <h1 hidden={true}>Search Clothing</h1>
-          <div style={styles.headlineContainer}>
-            <span
-              className="headline">
-              Search Amazon and Shopstyle at the same time.
-            </span>
+        <Filter onFilterChange={this.filtersUpdated.bind(this)}/>
+        <div style={styles.horizontalCentering}>
+          <div className="constrained" style={styles.pageContainer}>
+            <h1 hidden={true}>Search Clothing</h1>
+            <div style={styles.headlineContainer}>
+              <span
+                className="headline">
+                Search Amazon and Shopstyle at the same time.
+              </span>
+            </div>
+            <form
+              onSubmit={this.searchBarEntered.bind(this)}
+              style={styles.searchContainer}
+              className="search-container">
+              <input
+                type="text"
+                placeholder="Search 1000s of brands..."
+                style={styles.searchBar}
+                className="search-bar"
+                onChange={this.searchTextChanged.bind(this)} />
+              <button
+                className="search-button"
+                onClick={this.currentSearch.bind(this)}
+                >
+                <img
+                  src="images/search-glass.svg"
+                  className="search-icon" />
+              </button>
+            </form>
+            <ul className="grid">
+              {this.state.products.map((product, index) => (
+                <li
+                  key={index}>
+                  <Product
+                    imageUrl={product.imageUrl}
+                    title={product.title}
+                    price={product.price}
+                    {...this.props.currentUser ? {salePrice: product.salePrice} : {}}
+                    outboundUrl={product.outboundUrl} />
+                </li>
+              ))}
+            </ul>
+            <div
+              className="loadMoreContainer"
+              hidden={!this.state.isFirstPage}>
+              <button
+                className="uk-button uk-button-default loadMore"
+                onClick={this.currentSearch.bind(this)}>
+                Load More
+              </button>
+            </div>
+            { !(this.state.page == 1 || this.state.isFirstPage) &&
+                <ReactScrollPagination
+                  fetchFunc={this.loadMore.bind(this)} />
+            }
           </div>
-          <form
-            onSubmit={this.searchBarEntered.bind(this)}
-            style={styles.searchContainer}
-            className="search-container">
-            <input
-              type="text"
-              placeholder="Search 1000s of brands..."
-              style={styles.searchBar}
-              className="search-bar"
-              onChange={this.searchTextChanged.bind(this)} />
-            <button
-              className="search-button"
-              onClick={this.currentSearch.bind(this)}
-              >
-              <img
-                src="images/search-glass.svg"
-                className="search-icon" />
-            </button>
-          </form>
-          <ul className="grid">
-            {this.state.products.map((product, index) => (
-              <li
-                key={index}>
-                <Product
-                  imageUrl={product.imageUrl}
-                  title={product.title}
-                  price={product.price}
-                  {...this.props.currentUser ? {salePrice: product.salePrice} : {}}
-                  outboundUrl={product.outboundUrl} />
-              </li>
-            ))}
-          </ul>
-          <div
-            className="loadMoreContainer"
-            hidden={!this.state.isFirstPage}>
-            <button
-              className="uk-button uk-button-default loadMore"
-              onClick={this.currentSearch.bind(this)}>
-              Load More
-            </button>
-          </div>
-          { !(this.state.page == 1 || this.state.isFirstPage) &&
-              <ReactScrollPagination
-                fetchFunc={this.loadMore.bind(this)} />
-          }
         </div>
       </div>
     );
