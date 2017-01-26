@@ -46,6 +46,37 @@ if (Meteor.isServer) {
 
       return future.value;
     },
+    'fetchPrices'() {
+      var baseUrl = 'https://api.shopstyle.com/api/v2/products/histogram?filters=Price'
+
+      var future = new Future();
+      // Make http call
+      HTTP.get(baseUrl, {
+        "params": {
+          "pid": Meteor.settings.shopstyle.pid
+        }
+      }, function(error, response) {
+        if (error) {
+          callback(error, null);
+          console.log(error);
+        } else {
+          priceRanges = response.data.priceHistogram;
+          if (priceRanges && priceRanges != 'undefined') {
+            // Product response object exists
+            future.return(priceRanges);
+          } else {
+            // Product response does not exist
+            console.log("Response object is undefined.");
+            future.return([]);
+          }
+        }
+      });
+
+      future.wait();
+      // Returns either an empty array or a list of categories
+
+      return future.value;
+    },
     'fetchBrands'() {
       var baseUrl = 'https://api.shopstyle.com/api/v2/brands'
 
@@ -92,6 +123,9 @@ if (Meteor.isServer) {
 if (Meteor.isClient) {
   Meteor.methods({
     'fetchCategories'() {
+
+    },
+    'fetchPrices'() {
 
     },
     'fetchBrands'() {
