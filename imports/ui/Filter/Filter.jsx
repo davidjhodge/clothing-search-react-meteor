@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import CategoryList from './CategoryList/CategoryList.jsx';
 import BrandList from './BrandList/BrandList.jsx';
+import PriceFilter from './PriceFilter/PriceFilter.jsx';
 import './Filter.css';
 
 class Filter extends Component {
@@ -8,50 +10,45 @@ class Filter extends Component {
 
     this.state = {
       categories: [],
-      prices: [],
+      brands: [],
+      prices: {},
     };
   }
 
-  // This executes after the component renders (is mounted)
-  componentDidMount() {
-    this.getCategories();
+  updateFilters() {
+    this.props.onFilterChange(
+      this.state.categories,
+      this.state.prices,
+      this.state.brands
+    );
   }
 
-  getCategories() {
-    Meteor.call('fetchCategories', (error, response) => {
-      if (!error) {
-        this.setState({
-          categories: response
-        });
-      }
-    });
+  categoriesSelected(newCategories) {
+    this.state.categories = newCategories;
+    this.updateFilters();
+  }
+
+  brandsSelected(newBrands) {
+    this.state.brands = newBrands;
+    this.updateFilters();
+  }
+
+  priceRangeChanged(min, max) {
+    // TODO handle multiple price range selections
+    this.state.prices = {
+      "min": min,
+      "max": max,
+    };
+    this.updateFilters();
+    console.log("Min: " + min + ", Max: " + max);
   }
 
   render() {
     return (
       <div className="filter-container">
-        <div className="filter-section">
-          <span className="filter-title">CATEGORIES</span>
-          <form>
-            <ul className="filter-list">
-              {this.state.categories.map((category, index) => (
-                <li key={index}>
-                  <label className="filter-item">
-                    <input
-                      className="filter-checkbox"
-                      name="category"
-                      type="checkbox" />
-                    {category.shortName}
-                  </label>
-                </li>
-              ))}
-            </ul>
-          </form>
-        </div>
-        <div className="filter-section">
-          <span className="filter-title">PRICE</span>
-        </div>
-        <BrandList />
+        <CategoryList onCategoryChange={this.categoriesSelected.bind(this)} />
+        <PriceFilter onPriceChange={this.priceRangeChanged.bind(this)} />
+        <BrandList onBrandSelection={this.brandsSelected.bind(this)} />
       </div>
     );
   }

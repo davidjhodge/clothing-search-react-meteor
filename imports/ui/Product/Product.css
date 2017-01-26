@@ -60,7 +60,7 @@ a:hover {
 }
 
 .price {
-  font-size: calc(2*14px);
+  font-size: calc(2*16px);
   margin-top: calc(2*8px);
   height: calc(2*20px);
   font-family: 'Lato', sans-serif;
@@ -119,7 +119,7 @@ a:hover {
   }
 
   .price {
-    font-size: 14px;
+    font-size: 16px;
     margin-top: 8px;
     height: 30px;
     display: block;

@@ -5,10 +5,11 @@ import Api from './api.js';
 
 if (Meteor.isServer) {
   Meteor.methods({
-    'aggregateSearch'(searchQuery, page) {
+    'aggregateSearch'(searchQuery, page, filters) {
 
       check(searchQuery, String);
       check(page, Number);
+      check(filters, Object);
 
       // Create futures to manage handling multiple async tasks at once
       var numRequests = 2
@@ -19,7 +20,7 @@ if (Meteor.isServer) {
         switch (index) {
           // Get results from Shopstyle
           case 0:
-            Api.searchShopstyle(searchQuery, page, function(error,response) {
+            Api.searchShopstyle(searchQuery, page, filters, function(error,response) {
               if (error) {
                 console.error(error);
               } else {
@@ -113,7 +114,7 @@ if (Meteor.isServer) {
 
 if (Meteor.isClient) {
   Meteor.methods({
-    'aggregateSearch'(searchQuery, page) {
+    'aggregateSearch'(searchQuery, page, filters) {
 
     },
     'typeaheadSearch'(searchQuery) {

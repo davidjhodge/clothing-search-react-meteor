@@ -6,6 +6,7 @@ span.filter-title {
   font-size: 14px;
   font-weight: bold;
   display: block;
+  padding-bottom: 12px;
 }
 
 div.filter-section {
@@ -15,15 +16,22 @@ div.filter-section {
 
 ul.filter-list {
   padding-left: 0px;
-  padding-top: 12px;
+  overflow-y: auto;
 }
 
 ul.filter-list li {
   display: block;
+  border-radius: 4px;
+  padding-left: 4px;
+}
+
+ul.filter-list li:hover {
+  background-color: rgba(216,216,216,0.75);
 }
 
 label.filter-item {
   font-weight: normal;
+  display: block;
 }
 
 input.filter-checkbox {
@@ -36,6 +44,7 @@ input.filter-checkbox {
     width: 25%;
     float: left;
     background: transparent;
+    min-width: 264px;
     max-width: 264px;
     padding-top: 8px;
     padding-right: 32px;

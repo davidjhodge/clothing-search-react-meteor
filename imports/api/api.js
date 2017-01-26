@@ -4,7 +4,7 @@ import { parseString } from 'xml2js';
 import { get } from 'lodash';
 
 export default class Api {
-   static searchShopstyle(searchQuery, page, callback) {
+   static searchShopstyle(searchQuery, page, filters, callback) {
     // Get products for a search query from searchShopstyle
     check(searchQuery, String);
     check(page, Number);
@@ -14,14 +14,19 @@ export default class Api {
     page = (page - 1) * limit;
 
     var baseUrl = 'https://api.shopstyle.com/api/v2/products'
+
+    var params = {
+      "fts": searchQuery,
+      "offset": page,
+      "limit": 10,
+      "pid": Meteor.settings.shopstyle.pid
+    }
+
+    params = this.addShopstyleFilters(filters, params);
+
     // Make http call
     HTTP.get(baseUrl, {
-      "params": {
-        "fts": searchQuery,
-        "offset": page,
-        "limit": 10,
-        "pid": Meteor.settings.shopstyle.pid
-      }
+      "params": params,
     }, function(error, response) {
       if (error) {
         callback(error, null);
@@ -51,6 +56,40 @@ export default class Api {
       }
     });
   }
+
+  static addShopstyleFilters(filters, params) {
+    categories = filters.categories;
+    if (categories.length > 0) {
+      paramString = "";
+      categoryParams = this.arrayToParamString(categories);
+      params["cat"] = categoryParams;
+    }
+
+    brands = filters.brands;
+    if (brands.length > 0) {
+      paramString = "";
+      brandParams = this.arrayToParamString(brands);
+      params["b"] = brandParams;
+    }
+
+    return params;
+  }
+
+  static arrayToParamString(array) {
+    paramString = "";
+    if (array.length > 0) {
+      array.forEach(function(item) {
+        if (typeof key === 'string') {}
+        paramString = paramString + item + ",";
+      });
+
+      paramString = paramString.slice(0, -1);
+      return paramString;
+    }
+
+    return "";
+  }
+
   static searchAmazon(searchQuery, page, callback) {
     // Get products for a search query from Amazon
     check(searchQuery, String);
