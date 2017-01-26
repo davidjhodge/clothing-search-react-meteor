@@ -10,15 +10,16 @@ class Filter extends Component {
 
     this.state = {
       categories: [],
+      priceRanges: [],
       brands: [],
-      prices: {},
+      gender: "m",
     };
   }
 
   updateFilters() {
     this.props.onFilterChange(
       this.state.categories,
-      this.state.prices,
+      this.state.priceRanges,
       this.state.brands
     );
   }
@@ -33,22 +34,21 @@ class Filter extends Component {
     this.updateFilters();
   }
 
-  priceRangeChanged(min, max) {
+  priceRangeChanged(priceRanges) {
     // TODO handle multiple price range selections
-    this.state.prices = {
-      "min": min,
-      "max": max,
-    };
+    this.state.priceRanges = priceRanges;
     this.updateFilters();
-    console.log("Min: " + min + ", Max: " + max);
   }
 
   render() {
     return (
       <div className="filter-container">
-        <CategoryList onCategoryChange={this.categoriesSelected.bind(this)} />
-        <PriceFilter onPriceChange={this.priceRangeChanged.bind(this)} />
-        <BrandList onBrandSelection={this.brandsSelected.bind(this)} />
+        <CategoryList onCategoryChange={this.categoriesSelected.bind(this)}
+          gender={this.state.gender} />
+        <PriceFilter onPriceChange={this.priceRangeChanged.bind(this)}
+          gender={this.state.gender} />
+        <BrandList onBrandSelection={this.brandsSelected.bind(this)}
+          gender={this.state.gender}/>
       </div>
     );
   }

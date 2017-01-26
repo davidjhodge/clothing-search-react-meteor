@@ -90,7 +90,7 @@ class ProductSearch extends Component {
       isLoading: false,
       isFirstPage: false, // Button should show on first results page only
       lastSearch: '',
-      filters: {"categories": [], "brands": []},
+      filters: {"categories": [], "priceRanges": [], "brands": []},
       lastFilters: {},
     };
   }
@@ -187,16 +187,12 @@ class ProductSearch extends Component {
   }
 
   // Filtering
-  filtersUpdated(categories, prices, brands) {
+  filtersUpdated(categories, priceRanges, brands) {
     var newFilters = {
       "categories": categories,
+      "priceRanges": priceRanges,
       "brands": brands
     };
-    // if (prices.min || prices.max) {
-    //   filters["prices"] = { "min": prices.min, "max": prices.max};
-    // } else {
-    //   filters["prices"] = {};
-    // }
 
     this.state.filters = newFilters;
     this.state.page = 1;

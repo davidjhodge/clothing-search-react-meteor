@@ -42,13 +42,10 @@ class BrandList extends Component {
       // Exists. Let's remove it
       selections.splice(index, 1);
     } else {
-      selections.push(categoryId);
+      selections.push(brandId);
     }
 
-    // Update state
-    this.setState({
-      selections: selections,
-    });
+    this.state.selections = selections;
 
     // Update parent component
     this.props.onBrandSelection(this.state.selections);

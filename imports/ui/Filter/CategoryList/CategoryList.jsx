@@ -6,7 +6,7 @@ class CategoryList extends Component {
     super(props);
 
     this.state = {
-      categories: [],
+      allCategories: [],
       selections: [],
     };
   }
@@ -20,7 +20,7 @@ class CategoryList extends Component {
     Meteor.call('fetchCategories', (error, response) => {
       if (!error) {
         this.setState({
-          categories: response
+          allCategories: response
         });
       }
     });
@@ -40,10 +40,7 @@ class CategoryList extends Component {
       selections.push(categoryId);
     }
 
-    // Update state
-    this.setState({
-      selections: selections,
-    });
+    this.state.selections = selections;
 
     // Update parent component
     this.props.onCategoryChange(this.state.selections);
@@ -54,8 +51,8 @@ class CategoryList extends Component {
       <div className="filter-section">
         <span className="filter-title">CATEGORIES</span>
         <form>
-          <ul className="filter-list">
-            {this.state.categories.map((category, index) => (
+          <ul className="filter-list category-filters">
+            {this.state.allCategories.map((category, index) => (
               <li key={index}>
                 <label className="filter-item">
                   <input

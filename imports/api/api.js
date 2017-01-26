@@ -10,10 +10,10 @@ export default class Api {
     check(page, Number);
 
     // Page number is (page - 1) * limit
-    limit = 10
+    limit = 10;
     page = (page - 1) * limit;
 
-    var baseUrl = 'https://api.shopstyle.com/api/v2/products'
+    var baseUrl = 'https://api.shopstyle.com/api/v2/products';
 
     var params = {
       "fts": searchQuery,
@@ -60,14 +60,18 @@ export default class Api {
   static addShopstyleFilters(filters, params) {
     categories = filters.categories;
     if (categories.length > 0) {
-      paramString = "";
       categoryParams = this.arrayToParamString(categories);
       params["cat"] = categoryParams;
     }
 
+    priceRanges = filters.priceRanges;
+    if (priceRanges.length > 0) {
+      priceRangeParams = this.priceArrayToParamString(priceRanges);
+      params["fl"] = priceRangeParams;
+    }
+
     brands = filters.brands;
     if (brands.length > 0) {
-      paramString = "";
       brandParams = this.arrayToParamString(brands);
       params["b"] = brandParams;
     }
@@ -81,6 +85,22 @@ export default class Api {
       array.forEach(function(item) {
         if (typeof key === 'string') {}
         paramString = paramString + item + ",";
+      });
+
+      paramString = paramString.slice(0, -1);
+      return paramString;
+    }
+
+    return "";
+  }
+
+  // Adds a p in front of each price id
+  static priceArrayToParamString(array) {
+    paramString = "";
+    if (array.length > 0) {
+      array.forEach(function(item) {
+        if (typeof key === 'string') {}
+        paramString = paramString + "p" + item + ",";
       });
 
       paramString = paramString.slice(0, -1);
