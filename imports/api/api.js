@@ -15,19 +15,20 @@ export default class Api {
 
     var baseUrl = 'https://api.shopstyle.com/api/v2/products';
 
-    var params = {
-      "fts": searchQuery,
-      "offset": page,
-      "limit": 10,
-      "pid": Meteor.settings.shopstyle.pid
-    }
+    paramString = (
+      "fts=" + encodeURI(searchQuery) + "&" +
+      "offset=" + page + "&" +
+      "limit=" + 10 + "&" +
+      "pid=" + Meteor.settings.shopstyle.pid
+    );
 
-    params = this.addShopstyleFilters(filters, params);
+    url = baseUrl + "?" + paramString;
 
+    filterParams = this.addShopstyleFilters(filters);
+    url += ("&" + filterParams);
+    console.log(url);
     // Make http call
-    HTTP.get(baseUrl, {
-      "params": params,
-    }, function(error, response) {
+    HTTP.get(url, function(error, response) {
       if (error) {
         callback(error, null);
         console.log(error);
@@ -57,26 +58,62 @@ export default class Api {
     });
   }
 
-  static addShopstyleFilters(filters, params) {
+  static addShopstyleFilters(filters) {
+    categoryString = "";
     categories = filters.categories;
     if (categories.length > 0) {
       categoryParams = this.arrayToParamString(categories);
-      params["cat"] = categoryParams;
+      categoryString = ("cat=" + categoryParams)
+      // Add & to end. It will be removed if no more params are added
+      if (categoryParams.length > 0) {
+          categoryString += "&";
+      }
     }
 
+    priceString = "";
     priceRanges = filters.priceRanges;
     if (priceRanges.length > 0) {
-      priceRangeParams = this.priceArrayToParamString(priceRanges);
-      params["fl"] = priceRangeParams;
+      priceRangeParams = this.modifiedArrayToParamString(priceRanges, "price");
+      priceString = priceRangeParams;
+      // Add & to end. It will be removed if no more params are added
+      if (priceRangeParams.length > 0) {
+          priceString += "&";
+      }
     }
 
+    brandString = "";
     brands = filters.brands;
     if (brands.length > 0) {
-      brandParams = this.arrayToParamString(brands);
-      params["b"] = brandParams;
+      brandParams = this.modifiedArrayToParamString(brands, "brand");
+      brandString = brandParams;
+      // Add & to end. It will be removed if no more params are added
+      if (brandParams.length > 0) {
+          brandString += "&";
+      }
     }
 
-    return params;
+    paramString = "";
+
+    // Concatenate each set of parameters
+    // These are done at the end of this method to make maintainability easier
+    if (categoryString.length > 0) {
+      paramString += categoryString;
+    }
+    if (priceString.length > 0) {
+      paramString += priceString;
+    }
+    if (brandString.length > 0) {
+      paramString += brandString;
+    }
+
+    if (paramString.length > 0) {
+      // Remove final "&" if it exists
+      lastChar = paramString.substr(paramString.length - 1);
+      if (lastChar == "&") {
+        paramString = paramString.slice(0, -1);
+      }
+    }
+    return paramString;
   }
 
   static arrayToParamString(array) {
@@ -94,16 +131,23 @@ export default class Api {
     return "";
   }
 
-  // Adds a p in front of each price id
-  static priceArrayToParamString(array) {
+  // Type should
+  static modifiedArrayToParamString(array, type) {
+    prefix = "";
+    if (type == "price") {
+      prefix = "p";
+    } else if (type == "brand") {
+        prefix = "b";
+    }
     paramString = "";
     if (array.length > 0) {
       array.forEach(function(item) {
-        if (typeof key === 'string') {}
-        paramString = paramString + "p" + item + ",";
+        if (typeof item === 'string') {
+          paramString += ("fl=" + prefix + item + "&");
+        }
       });
 
-      paramString = paramString.slice(0, -1);
+      // paramString = paramString.slice(0, -1);
       return paramString;
     }
 
