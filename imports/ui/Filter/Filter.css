@@ -3,6 +3,7 @@
 }
 
 span.filter-title {
+  font-family: 'Lato', sans-serif;
   font-size: 14px;
   font-weight: bold;
   display: block;
@@ -16,6 +17,11 @@ div.filter-section {
 
 ul.filter-list {
   padding-left: 0px;
+  overflow: hidden;
+  height: 282px;
+}
+
+ul.filter-list:hover, ul.filter-list:active, ul.filter-list:focus {
   overflow-y: auto;
 }
 
@@ -30,8 +36,10 @@ ul.filter-list li:hover {
 }
 
 label.filter-item {
+  font-family: 'Lato', sans-serif;
   font-weight: normal;
   display: block;
+  white-space: pre;
 }
 
 input.filter-checkbox {

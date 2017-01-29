@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Typeahead } from 'react-bootstrap-typeahead';
 import '../Filter.css';
 
 class BrandList extends Component {
@@ -10,18 +9,25 @@ class BrandList extends Component {
       brands: [],
       selections: [],
       searchString: "",
+      page: 0,
     };
   }
 
   componentDidMount() {
-    this.getBrands();
+    this.getBrands(this.state.page);
   }
 
-  getBrands() {
-    Meteor.call('fetchBrands', (error, response) => {
+  getBrands(page) {
+    Meteor.call('fetchBrands', page, (error, response) => {
       if (!error) {
+        brands = [];
+        if (this.state.brands.length > 0) {
+          Array.prototype.push.apply(this.state.brands,response);
+        } else {
+          brands = response;
+        }
         this.setState({
-          brands: response
+          brands: brands,
         });
       }
     });
@@ -55,12 +61,6 @@ class BrandList extends Component {
     return (
       <div className="filter-section">
         <span className="filter-title">BRANDS</span>
-        <Typeahead
-          placeholder="Search brands..."
-          onInputChange={this.searchTextChanged.bind(this)}
-          onChange={this.props.onBrandSelection}
-          options={this.state.brands.map(function(brand) { return brand.name; })}
-          emptyLabel="" />
         <form>
           <ul className="filter-list">
             {this.state.brands.map((brand, index) => (
