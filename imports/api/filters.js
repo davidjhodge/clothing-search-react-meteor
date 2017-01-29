@@ -28,9 +28,7 @@ if (Meteor.isServer) {
               simpleCat["id"] = category["id"];
               simpleCat["name"] = category["name"];
               simpleCat["shortName"] = category["shortName"];
-              if (index < 10) {
-                simpleCategories.push(simpleCat);
-              }
+              simpleCategories.push(simpleCat);
             });
             future.return(simpleCategories);
           } else {
@@ -77,15 +75,17 @@ if (Meteor.isServer) {
 
       return future.value;
     },
-    'fetchBrands'() {
-      var baseUrl = 'https://api.shopstyle.com/api/v2/brands'
+    'fetchBrands'(page) {
+      check(page, Number);
 
+      var baseUrl = 'https://api.shopstyle.com/api/v2/brands'
       var future = new Future();
+      limit = 40;
       // Make http call
       HTTP.get(baseUrl, {
         "params": {
-          "limit": 10,
-          "offset": 0,
+          "limit": limit,
+          "offset": limit * page,
           "pid": Meteor.settings.shopstyle.pid
         }
       }, function(error, response) {
@@ -128,7 +128,7 @@ if (Meteor.isClient) {
     'fetchPrices'() {
 
     },
-    'fetchBrands'() {
+    'fetchBrands'(page) {
 
     }
   });
