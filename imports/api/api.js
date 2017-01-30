@@ -26,7 +26,7 @@ export default class Api {
 
     filterParams = this.addShopstyleFilters(filters);
     url += ("&" + filterParams);
-    console.log(url);
+
     // Make http call
     HTTP.get(url, function(error, response) {
       if (error) {

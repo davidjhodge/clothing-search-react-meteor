@@ -1,5 +1,6 @@
 .brand-list {
   overflow: hidden;
+  overflow-y: hidden !important;
   outline: none;
 }
 
@@ -8,13 +9,14 @@
   outline: none;
 }
 
-label.filter-item:hover, .brand-list > div:active, .brand-list > div:focus {
-  overflow-y: auto;
+.brand-list:hover, .brand-list:active, .brand-list:focus {
+  overflow-y: auto !important;
 }
 
 .brand-list li {
   list-style: none;
   padding-left: 4px;
+  border-radius: 4px;
 }
 
 .brand-list li:hover {
