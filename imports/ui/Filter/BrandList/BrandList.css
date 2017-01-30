@@ -1,0 +1,22 @@
+.brand-list {
+  overflow: hidden;
+  outline: none;
+}
+
+.brand-list > div {
+  overflow: hidden;
+  outline: none;
+}
+
+label.filter-item:hover, .brand-list > div:active, .brand-list > div:focus {
+  overflow-y: auto;
+}
+
+.brand-list li {
+  list-style: none;
+  padding-left: 4px;
+}
+
+.brand-list li:hover {
+  background-color: rgba(216,216,216,0.75);
+}

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { List } from 'react-virtualized';
 import '../Filter.css';
+import './BrandList.css';
 
 class BrandList extends Component {
   constructor(props) {
@@ -9,26 +11,17 @@ class BrandList extends Component {
       brands: [],
       selections: [],
       searchString: "",
-      page: 0,
     };
   }
 
   componentDidMount() {
-    this.getBrands(this.state.page);
+    this.getBrands();
   }
 
-  getBrands(page) {
-    Meteor.call('fetchBrands', page, (error, response) => {
+  getBrands() {
+    Meteor.call('fetchBrands', (error, response) => {
       if (!error) {
-        brands = [];
-        if (this.state.brands.length > 0) {
-          Array.prototype.push.apply(this.state.brands,response);
-        } else {
-          brands = response;
-        }
-        this.setState({
-          brands: brands,
-        });
+        this.state.brands = response;
       }
     });
   }
@@ -57,30 +50,54 @@ class BrandList extends Component {
     this.props.onBrandSelection(this.state.selections);
   }
 
+  rowRenderer ({ key, index, style}) {
+    var brand = this.state.brands[index];
+    return (
+      <li key={key} style={style}>
+        <label className="filter-item">
+          <input
+            className="filter-checkbox"
+            name="category"
+            type="checkbox"
+            value={brand.id}
+            onClick={this.inputToggle.bind(this)} />
+          {brand.name}
+        </label>
+      </li>
+    );
+  }
+
   render() {
     return (
       <div className="filter-section">
         <span className="filter-title">BRANDS</span>
-        <form>
-          <ul className="filter-list">
-            {this.state.brands.map((brand, index) => (
-              <li key={index}>
-                <label className="filter-item">
-                  <input
-                    className="filter-checkbox"
-                    name="category"
-                    type="checkbox"
-                    value={brand.id}
-                    onClick={this.inputToggle.bind(this)} />
-                  {brand.name}
-                </label>
-              </li>
-            ))}
-          </ul>
-        </form>
+        <List
+          className="brand-list"
+          width={200}
+          height={282}
+          rowCount={this.state.brands.length}
+          rowHeight={24}
+          rowRenderer={this.rowRenderer.bind(this)}
+        />
       </div>
     );
   }
 }
+
+// <ul className="filter-list">
+//   {this.state.brands.map((brand, index) => (
+//     <li key={index}>
+//       <label className="filter-item">
+//         <input
+//           className="filter-checkbox"
+//           name="category"
+//           type="checkbox"
+//           value={brand.id}
+//           onClick={this.inputToggle.bind(this)} />
+//         {brand.name}
+//       </label>
+//     </li>
+//   ))}
+// </ul>
 
 export default BrandList;
