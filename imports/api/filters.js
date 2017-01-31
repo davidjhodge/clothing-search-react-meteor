@@ -11,7 +11,7 @@ if (Meteor.isServer) {
       // Make http call
       HTTP.get(baseUrl, {
         "params": {
-          "depth": 2,
+          "depth": 3,
           "pid": Meteor.settings.shopstyle.pid
         }
       }, function(error, response) {
@@ -28,6 +28,7 @@ if (Meteor.isServer) {
               simpleCat["id"] = category["id"];
               simpleCat["name"] = category["name"];
               simpleCat["shortName"] = category["shortName"];
+              simpleCat["parentId"] = category["parentId"];
               simpleCategories.push(simpleCat);
             });
             future.return(simpleCategories);
