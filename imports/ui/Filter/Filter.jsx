@@ -48,7 +48,6 @@ class Filter extends Component {
   }
 
   priceRangeChanged(priceRanges) {
-    // TODO handle multiple price range selections
     this.state.priceRanges = priceRanges;
     this.updateFilters();
   }

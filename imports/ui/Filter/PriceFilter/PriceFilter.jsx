@@ -29,14 +29,25 @@ class PriceFilter extends Component {
     var checkbox = event.target;
     priceRangeId = checkbox.value;
     // Add category if it does not exist. If it does exist, remove it
-    index = this.state.selections.indexOf(priceRangeId);
+    index = -1;
+    this.state.selections.forEach(function(selection, i) {
+      if (selection.id == priceRangeId) {
+        index = i;
+      }
+    });
+
+    matchingPriceRanges = this.state.priceRanges.filter(function(priceRange) {
+      return priceRange.id == priceRangeId;
+    });
+    priceRange = matchingPriceRanges[0];
+
     selections = this.state.selections;
 
     if (index > -1) {
       // Exists. Let's remove it
       selections.splice(index, 1);
     } else {
-      selections.push(priceRangeId);
+      selections.push(priceRange);
     }
 
     this.state.selections = selections;

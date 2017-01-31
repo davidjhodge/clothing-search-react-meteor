@@ -33,7 +33,7 @@ if (Meteor.isServer) {
 
           // Get search results on Amazon
           case 1:
-            Api.searchAmazon(searchQuery, page, function(error,response) {
+            Api.searchAmazon(searchQuery, page, filters, function(error,response) {
               if (error) {
                 console.error(error);
               } else {

@@ -66,11 +66,12 @@ export default class Api {
     } else {
       genderString = "women";
     }
+    genderString += "&";
 
     priceString = "";
     priceRanges = filters.priceRanges;
     if (priceRanges.length > 0) {
-      priceRangeParams = this.arrayToParamString(priceRanges, "price");
+      priceRangeParams = this.shopstyleArrayToParamString(priceRanges, "price");
       priceString = priceRangeParams;
       // Add & to end. It will be removed if no more params are added
       if (priceRangeParams.length > 0) {
@@ -81,7 +82,7 @@ export default class Api {
     brandString = "";
     brands = filters.brands;
     if (brands.length > 0) {
-      brandParams = this.arrayToParamString(brands, "brand");
+      brandParams = this.shopstyleArrayToParamString(brands, "brand");
       brandString = brandParams;
       // Add & to end. It will be removed if no more params are added
       if (brandParams.length > 0) {
@@ -115,7 +116,7 @@ export default class Api {
   }
 
   // Type should
-  static arrayToParamString(array, type) {
+  static shopstyleArrayToParamString(array, type) {
     prefix = "";
     if (type == "price") {
       prefix = "p";
@@ -125,6 +126,10 @@ export default class Api {
     paramString = "";
     if (array.length > 0) {
       array.forEach(function(item) {
+        if (type == "price") {
+          item = item.id;
+        }
+
         if (typeof item === 'string') {
           paramString += ("fl=" + prefix + item + "&");
         }
@@ -137,7 +142,7 @@ export default class Api {
     return "";
   }
 
-  static searchAmazon(searchQuery, page, callback) {
+  static searchAmazon(searchQuery, page, filters, callback) {
     // Get products for a search query from Amazon
     check(searchQuery, String);
     check(page, Number);
@@ -153,9 +158,24 @@ export default class Api {
     params.push("AWSAccessKeyId=" + Meteor.settings.amazon.AWSAccessKeyId);
     params.push("AssociateTag=" + Meteor.settings.amazon.AssociateTag);
     params.push("Keywords=" + encodeURIComponent(searchQuery));
+
+    if (filters.priceRanges.length > 0) {
+      priceRange = this.amazonPriceExtractor(filters.priceRanges);
+      params.push("MaximumPrice=" + priceRange.max * 100);
+      params.push("MinimumPrice=" + priceRange.min * 100);
+    }
+
     params.push("Operation=" + "ItemSearch");
     params.push("ResponseGroup=" +encodeURIComponent("Images,ItemAttributes,Offers"));
-    params.push("SearchIndex=" + "Fashion");
+
+    searchIndex="Fashion";
+    if (filters.gender == "m") {
+      searchIndex = "FashionMen";
+    } else if (filters.gender == "f") {
+      searchIndex = "FashionWomen";
+    }
+
+    params.push("SearchIndex=" + searchIndex);
     params.push("ItemPage=" + page.toString())
     params.push("Service=" + "AWSECommerceService");
     params.push("Timestamp=" + encodeURIComponent(date.toISOString()));
@@ -221,5 +241,68 @@ export default class Api {
         });
       }
     });
+  }
+
+  static amazonPriceExtractor(prices) {
+    if (prices.length > 0) {
+      possiblePrices = [];
+
+      min = 0;
+      max = 99999;
+
+      prices.forEach((priceObj) => {
+        priceString = priceObj.name.substr(1);
+        // Check 5000+ case
+        if (priceString.substr(0,5) == "5,000") {
+          possiblePrices.push("5000");
+          possiblePrices.push("99999");
+        }
+        // Handle all other price ranges manually
+        lowerBound = priceString.substr(0,priceString.indexOf(' '));
+        // Manually apply filters based on known price groups
+        if (lowerBound == "0") {
+          possiblePrices.push(0);
+          possiblePrices.push(25);
+        } else if (lowerBound == "25") {
+          possiblePrices.push(25);
+          possiblePrices.push(50);
+        } else if (lowerBound == "50") {
+          possiblePrices.push(50);
+          possiblePrices.push(100);
+        }
+        else if (lowerBound == "100") {
+          possiblePrices.push(100);
+          possiblePrices.push(150);
+        }
+        else if (lowerBound == "150") {
+          possiblePrices.push(150);
+          possiblePrices.push(250);
+        }
+        else if (lowerBound == "250") {
+          possiblePrices.push(250);
+          possiblePrices.push(500);
+        }
+        else if (lowerBound == "500") {
+          possiblePrices.push(500);
+          possiblePrices.push(1000);
+        }
+        else if (lowerBound == "1,000") {
+          possiblePrices.push(1000);
+          possiblePrices.push(2500);
+        }
+        else if (lowerBound == "2,500") {
+          possiblePrices.push(2500);
+          possiblePrices.push(5000);
+        }
+
+        min = Math.min(...possiblePrices);
+        max = Math.max(...possiblePrices);
+      });
+
+      return {
+        "min": min,
+        "max": max,
+      };
+    }
   }
 }
