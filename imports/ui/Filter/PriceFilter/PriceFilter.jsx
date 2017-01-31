@@ -47,7 +47,7 @@ class PriceFilter extends Component {
 
   render() {
     return (
-      <div className="filter-section">
+      <div className="filter-section price-list">
         <span className="filter-title">PRICE</span>
         <form>
           <ul className="filter-list">

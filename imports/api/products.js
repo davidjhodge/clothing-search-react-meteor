@@ -6,6 +6,7 @@ import Api from './api.js';
 if (Meteor.isServer) {
   Meteor.methods({
     'aggregateSearch'(searchQuery, page, filters) {
+      this.unblock();
 
       check(searchQuery, String);
       check(page, Number);

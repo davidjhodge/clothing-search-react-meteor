@@ -16,14 +16,52 @@ class CategoryList extends Component {
     this.getCategories();
   }
 
+  // componentWillReceiveProps() {
+  //   this.updateCategoryFilters();
+  // }
+
   getCategories() {
     Meteor.call('fetchCategories', (error, response) => {
       if (!error) {
-        this.setState({
-          allCategories: response
-        });
+        this.state.allCategories = response;
+        this.updateCategoryFilters();
       }
     });
+  }
+
+  // Uses a hack (some iteration) to filter out categories of the other gender's style
+  updateCategoryFilters() {
+    gender = this.state.gender;
+    // Set name of parent key to remove all items
+    parentKey = "women";
+    if (gender == "f") {
+      parentKey = "m";
+    }
+
+    allCategories = this.state.allCategories;
+    parentCategories = [];
+    allCategories.forEach(function(category, index) {
+      if (category.id == parentKey) {
+        allCategories.splice(index, 1);
+      }
+      // Get all categories whose parent is "women"
+      if (category.parentId == parentKey) {
+        parentCategories.push(category.id);
+        allCategories.splice(index, 1);
+      }
+
+      allCategories.forEach(function(category, index) {
+        if (parentCategories.includes(category.parentId)) {
+          allCategories.splice(index, 1);
+        }
+      });
+    });
+
+    if (allCategories.length > 0) {
+      this.setState({
+        categories: allCategories,
+      });
+    }
   }
 
   inputToggle(event) {

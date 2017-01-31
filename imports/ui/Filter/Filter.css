@@ -15,6 +15,10 @@ div.filter-section {
   margin-bottom: 32px;
 }
 
+.price-list {
+  height: 290px;
+}
+
 ul.filter-list {
   padding-left: 0px;
   overflow: hidden;
@@ -44,6 +48,34 @@ label.filter-item {
 
 input.filter-checkbox {
   margin-right: 12px;
+}
+
+.gender-button-container {
+  margin-top: 40px;
+}
+
+.gender-button {
+  background-color: white;
+  background-image: none;
+  color: rgb(151,151,151);
+  border-color: rgb(151,151,151);
+  border-width: 1px;
+  border-style: solid;
+  outline: none;
+  box-shadow: none;
+  margin-right: 24px;
+  width: 88px;
+  height: 34px;
+}
+
+.gender-button:hover {
+  color: black;
+  border-color: black;
+}
+
+.gender-button-selected, .gender-button-selected:hover {
+  color: rgb(76,133,238);
+  border-color: rgb(76,133,238);
 }
 
 @media (min-width: 1000px) {
