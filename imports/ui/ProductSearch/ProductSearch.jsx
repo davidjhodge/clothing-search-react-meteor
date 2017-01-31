@@ -83,14 +83,14 @@ class ProductSearch extends Component {
   constructor(props) {
     super(props);
     this.state =  {
-      searchString: "mens clothes",
+      searchString: "clothes",
       products: [],
       suggestedSearches: [],
       page: 1,
       isLoading: false,
       isFirstPage: false, // Button should show on first results page only
       lastSearch: '',
-      filters: {"categories": [], "priceRanges": [], "brands": []},
+      filters: {"gender": "m", "priceRanges": [], "brands": []},
       lastFilters: {},
     };
   }
@@ -187,9 +187,9 @@ class ProductSearch extends Component {
   }
 
   // Filtering
-  filtersUpdated(categories, priceRanges, brands) {
+  filtersUpdated(gender, priceRanges, brands) {
     var newFilters = {
-      "categories": categories,
+      "gender": gender,
       "priceRanges": priceRanges,
       "brands": brands
     };

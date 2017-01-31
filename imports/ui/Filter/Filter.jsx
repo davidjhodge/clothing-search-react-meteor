@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import CategoryList from './CategoryList/CategoryList.jsx';
 import BrandList from './BrandList/BrandList.jsx';
 import PriceFilter from './PriceFilter/PriceFilter.jsx';
 import { Button } from 'react-bootstrap';
@@ -17,7 +16,6 @@ class Filter extends Component {
     super(props);
 
     this.state = {
-      categories: [],
       priceRanges: [],
       brands: [],
       gender: "m",
@@ -26,7 +24,7 @@ class Filter extends Component {
 
   updateFilters() {
     this.props.onFilterChange(
-      this.state.categories,
+      this.state.gender,
       this.state.priceRanges,
       this.state.brands
     );
@@ -36,15 +34,12 @@ class Filter extends Component {
   changeGender(type) {
     check(type, String);
     if (type == "m" || type == "f") {
+      this.state.gender = type;
       this.setState({
         gender: type,
       });
+      this.updateFilters();
     }
-  }
-
-  categoriesSelected(newCategories) {
-    this.state.categories = newCategories;
-    this.updateFilters();
   }
 
   brandsSelected(newBrands) {
@@ -74,8 +69,6 @@ class Filter extends Component {
               ((this.state.gender == "f") ? " gender-button-selected" : "")}>
               Women</button>
         </div>
-        <CategoryList onCategoryChange={this.categoriesSelected.bind(this)}
-          gender={this.state.gender} />
         <PriceFilter onPriceChange={this.priceRangeChanged.bind(this)} />
         <BrandList onBrandSelection={this.brandsSelected.bind(this)}
           gender={this.state.gender}/>
