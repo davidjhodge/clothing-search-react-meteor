@@ -59,21 +59,18 @@ export default class Api {
   }
 
   static addShopstyleFilters(filters) {
-    categoryString = "";
-    categories = filters.categories;
-    if (categories.length > 0) {
-      categoryParams = this.arrayToParamString(categories);
-      categoryString = ("cat=" + categoryParams)
-      // Add & to end. It will be removed if no more params are added
-      if (categoryParams.length > 0) {
-          categoryString += "&";
-      }
+    genderString = "";
+    gender = filters.gender;
+    if (gender == "m") {
+      genderString = "men";
+    } else {
+      genderString = "women";
     }
 
     priceString = "";
     priceRanges = filters.priceRanges;
     if (priceRanges.length > 0) {
-      priceRangeParams = this.modifiedArrayToParamString(priceRanges, "price");
+      priceRangeParams = this.arrayToParamString(priceRanges, "price");
       priceString = priceRangeParams;
       // Add & to end. It will be removed if no more params are added
       if (priceRangeParams.length > 0) {
@@ -84,7 +81,7 @@ export default class Api {
     brandString = "";
     brands = filters.brands;
     if (brands.length > 0) {
-      brandParams = this.modifiedArrayToParamString(brands, "brand");
+      brandParams = this.arrayToParamString(brands, "brand");
       brandString = brandParams;
       // Add & to end. It will be removed if no more params are added
       if (brandParams.length > 0) {
@@ -96,9 +93,10 @@ export default class Api {
 
     // Concatenate each set of parameters
     // These are done at the end of this method to make maintainability easier
-    if (categoryString.length > 0) {
-      paramString += categoryString;
+    if (genderString.length > 0) {
+      paramString += ("cat=" + genderString);
     }
+
     if (priceString.length > 0) {
       paramString += priceString;
     }
@@ -116,23 +114,8 @@ export default class Api {
     return paramString;
   }
 
-  static arrayToParamString(array) {
-    paramString = "";
-    if (array.length > 0) {
-      array.forEach(function(item) {
-        if (typeof key === 'string') {}
-        paramString = paramString + item + ",";
-      });
-
-      paramString = paramString.slice(0, -1);
-      return paramString;
-    }
-
-    return "";
-  }
-
   // Type should
-  static modifiedArrayToParamString(array, type) {
+  static arrayToParamString(array, type) {
     prefix = "";
     if (type == "price") {
       prefix = "p";
