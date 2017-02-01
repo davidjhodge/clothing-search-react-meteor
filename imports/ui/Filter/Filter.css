@@ -1,5 +1,6 @@
 .filter-container {
   visibility: hidden;
+  width: 0px;
 }
 
 span.filter-title {
@@ -50,10 +51,6 @@ input.filter-checkbox {
   margin-right: 12px;
 }
 
-.gender-button-container {
-  margin-top: 40px;
-}
-
 .gender-button {
   background-color: white;
   background-image: none;
@@ -86,7 +83,7 @@ input.filter-checkbox {
     background: transparent;
     min-width: 264px;
     max-width: 264px;
-    padding-top: 8px;
+    margin-top: 32px;
     padding-right: 32px;
     padding-left: 32px;
   }

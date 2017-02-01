@@ -31,6 +31,7 @@ div#login-buttons-open-change-password.login-button:hover {
 }
 
 .login-link-text {
+  font-size: calc(2*14px);
   color: #ffffff;
   text-decoration: none;
 }
@@ -50,4 +51,24 @@ div#login-buttons-open-change-password.login-button:hover {
 
 .or-text, #login-password-label, #login-password-label {
   font-family: "Lato", sans-serif;
+}
+
+#nav-link-contact {
+  visibility: hidden;
+  width: 0px;
+  margin: 0;
+  padding: 0;
+}
+
+@media (min-width: 1000px) {
+  .login-link-text {
+    font-size: 14px;
+  }
+
+  #nav-link-contact {
+    visibility: visible;
+    width: auto;
+    padding: 16px;
+    padding-right: 16px;
+  }
 }

@@ -115,7 +115,6 @@ export default class Api {
     return paramString;
   }
 
-  // Type should
   static shopstyleArrayToParamString(array, type) {
     prefix = "";
     if (type == "price") {
@@ -126,9 +125,7 @@ export default class Api {
     paramString = "";
     if (array.length > 0) {
       array.forEach(function(item) {
-        if (type == "price") {
-          item = item.id;
-        }
+        item = item.id;
 
         if (typeof item === 'string') {
           paramString += ("fl=" + prefix + item + "&");
@@ -157,24 +154,32 @@ export default class Api {
     var params = [];
     params.push("AWSAccessKeyId=" + Meteor.settings.amazon.AWSAccessKeyId);
     params.push("AssociateTag=" + Meteor.settings.amazon.AssociateTag);
+
+    // Brand Filtering
+    if (filters.brands.length > 0) {
+      brandParamString = this.amazonArrayToParamString(filters.brands);
+      params.push("Brand=" + brandParamString);
+    }
+
     params.push("Keywords=" + encodeURIComponent(searchQuery));
 
+    // Price Range Filtering
     if (filters.priceRanges.length > 0) {
       priceRange = this.amazonPriceExtractor(filters.priceRanges);
       params.push("MaximumPrice=" + priceRange.max * 100);
       params.push("MinimumPrice=" + priceRange.min * 100);
     }
-
+    
     params.push("Operation=" + "ItemSearch");
     params.push("ResponseGroup=" +encodeURIComponent("Images,ItemAttributes,Offers"));
 
+    // Gender Filtering
     searchIndex="Fashion";
     if (filters.gender == "m") {
       searchIndex = "FashionMen";
     } else if (filters.gender == "f") {
       searchIndex = "FashionWomen";
     }
-
     params.push("SearchIndex=" + searchIndex);
     params.push("ItemPage=" + page.toString())
     params.push("Service=" + "AWSECommerceService");
@@ -304,5 +309,31 @@ export default class Api {
         "max": max,
       };
     }
+  }
+
+  static amazonArrayToParamString(array) {
+    paramString = "";
+    if (array.length > 0) {
+      array.forEach(function(item) {
+        item = item.name;
+
+        if (typeof item === 'string') {
+          // Remove spaces and hope (yes hope) that Amazon recognizes the Brand key
+          item = item.replace(/\s/g, '');
+          paramString += (item + ",");
+        }
+      });
+
+      // Remove last character if it's a comma
+      lastChar = paramString.slice(-1);
+      if (lastChar == ",") {
+        paramString = paramString.slice(0, -1);
+      }
+
+      // paramString = paramString.slice(0, -1);
+      return paramString;
+    }
+
+    return "";
   }
 }
