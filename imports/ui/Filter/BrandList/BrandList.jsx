@@ -35,13 +35,25 @@ class BrandList extends Component {
     brandId = checkbox.value;
     // Add category if it does not exist. If it does exist, remove it
     index = this.state.selections.indexOf(brandId);
+
+    this.state.selections.forEach(function(selection, i) {
+      if (selection.id == brandId) {
+        index = i;
+      }
+    });
+
+    matchingBrands = this.state.brands.filter(function(brand) {
+      return brand.id == brandId;
+    });
+    brand = matchingBrands[0];
+
     selections = this.state.selections;
 
     if (index > -1) {
       // Exists. Let's remove it
       selections.splice(index, 1);
     } else {
-      selections.push(brandId);
+      selections.push(brand);
     }
 
     this.state.selections = selections;

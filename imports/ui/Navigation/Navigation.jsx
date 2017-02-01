@@ -47,6 +47,7 @@ class Navigation extends Component {
             <Link
               to="/contact"
               activeStyle={styles.activeLink}
+              id="nav-link-contact"
               className="nav-link">Contact</Link>
             <AccountsUIWrapper />
           </div>
