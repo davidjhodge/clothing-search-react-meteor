@@ -209,31 +209,6 @@ class ProductSearch extends Component {
         <div style={styles.horizontalCentering}>
           <div className="constrained" style={styles.pageContainer}>
             <h1 hidden={true}>Search Clothing</h1>
-            <div style={styles.headlineContainer}>
-              <span
-                className="headline">
-                Search Amazon and Shopstyle at the same time.
-              </span>
-            </div>
-            <form
-              onSubmit={this.searchBarEntered.bind(this)}
-              style={styles.searchContainer}
-              className="search-container">
-              <input
-                type="text"
-                placeholder="Search 1000s of brands..."
-                style={styles.searchBar}
-                className="search-bar"
-                onChange={this.searchTextChanged.bind(this)} />
-              <button
-                className="search-button"
-                onClick={this.currentSearch.bind(this)}
-                >
-                <img
-                  src="images/search-glass.svg"
-                  className="search-icon" />
-              </button>
-            </form>
             <ul className="grid">
               {this.state.products.map((product, index) => (
                 <li
