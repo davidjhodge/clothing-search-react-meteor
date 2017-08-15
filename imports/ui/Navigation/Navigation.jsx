@@ -57,14 +57,13 @@ class Navigation extends Component {
             className="logo">LAYERS</IndexLink>
           <div style={styles.navLinksContainer} className="navLinksContainer">
             <Link
+              to="/clothing-search"
+              activeStyle={styles.activeLink}
+              className="nav-link">Clothing Search</Link>
+            <Link
               to="/our-vision"
               activeStyle={styles.activeLink}
               className="nav-link">Our Vision</Link>
-            <Link
-              to="/contact"
-              activeStyle={styles.activeLink}
-              id="nav-link-contact"
-              className="nav-link">Contact</Link>
             <AccountsUIWrapper />
           </div>
         </div>
@@ -83,7 +82,7 @@ class Navigation extends Component {
             className="search-container">
             <input
               type="text"
-              placeholder="Search 1000s of brands..."
+              placeholder="Search collections..."
               style={styles.searchBar}
               className="search-bar"
               onChange={this.searchTextChanged.bind(this)} />

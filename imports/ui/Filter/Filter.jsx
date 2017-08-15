@@ -69,8 +69,6 @@ class Filter extends Component {
               Women</button>
         </div>
         <PriceFilter onPriceChange={this.priceRangeChanged.bind(this)} />
-        <BrandList onBrandSelection={this.brandsSelected.bind(this)}
-          gender={this.state.gender}/>
       </div>
     );
   }

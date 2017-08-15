@@ -26,6 +26,7 @@ export default class Api {
 
     filterParams = this.addShopstyleFilters(filters);
     url += ("&" + filterParams);
+    console.log(url);
 
     // Make http call
     HTTP.get(url, function(error, response) {
@@ -169,7 +170,7 @@ export default class Api {
       params.push("MaximumPrice=" + priceRange.max * 100);
       params.push("MinimumPrice=" + priceRange.min * 100);
     }
-    
+
     params.push("Operation=" + "ItemSearch");
     params.push("ResponseGroup=" +encodeURIComponent("Images,ItemAttributes,Offers"));
 

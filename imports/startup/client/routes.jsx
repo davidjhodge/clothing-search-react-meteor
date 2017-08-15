@@ -5,6 +5,7 @@ import ReactGA from 'react-ga';
 ReactGA.initialize('UA-90659201-1');
 
 import App from '../../ui/App/App.jsx';
+import Collections from '../../ui/Collections/Collections.jsx';
 import ProductSearch from '../../ui/ProductSearch/ProductSearch.jsx';
 import About from '../../ui/About/About.jsx';
 import Contact from '../../ui/Contact/Contact.jsx';
@@ -31,8 +32,9 @@ Meteor.startup( () => {
   render(
     <Router history={browserHistory} onUpdate={onUpdate}>
       <Route path="/" component={App}>
-        <IndexRoute component={ProductSearch} />
+        <IndexRoute component={Collections} />
         <Route path="/our-vision" component={About} />
+        <Route path="/clothing-search" component={ProductSearch} />
         <Route path="/contact" component={Contact} />
         <Route path="/terms" component={Terms} />
         <Route path="/privacy" component={Privacy} />
