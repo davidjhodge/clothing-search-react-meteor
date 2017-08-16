@@ -1,0 +1,17 @@
+{
+  "galaxy.meteor.com": {
+     "env": {
+       "MONGO_URL": "INSERT_MONGO_URL",
+       "MAIL_URL": "INSERT_MAILGUN_URL",
+       "DDP_DEFAULT_CONNECTION_URL": "http://localhost:3030"
+     }
+   },
+   "shopstyle": {
+     "pid": "INSERT_SHOPSTYLE_ID"
+   },
+   "amazon": {
+     "AWSAccessKeyId": "INSERT_AWS_ACCESS_KEY",
+     "AWSPrivateKey": "INSERT_AWS_PRIVATE_KEY",
+     "AssociateTag": "INSERT_AWS_ASSOCIATE_TAG"
+   }
+}

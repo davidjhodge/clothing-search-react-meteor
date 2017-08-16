@@ -15,8 +15,8 @@ if (Meteor.isServer) {
         }
       }, function(error, response) {
         if (error) {
-          callback(error, null);
           console.log(error);
+          return [];
         } else {
           priceRanges = response.data.priceHistogram;
           if (priceRanges && priceRanges != 'undefined') {
@@ -47,8 +47,8 @@ if (Meteor.isServer) {
         }
       }, function(error, response) {
         if (error) {
-          callback(error, null);
           console.log(error);
+          return [];
         } else {
           brands = response.data.brands;
           if (brands && brands != 'undefined') {
